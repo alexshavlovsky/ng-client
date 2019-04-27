@@ -8,6 +8,8 @@ import {NotesComponent} from './notes/notes.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faStickyNote} from '@fortawesome/free-solid-svg-icons';
 
 import {RouterModule, Routes} from '@angular/router';
 
@@ -41,5 +43,6 @@ const appRoutes: Routes = [
 })
 export class AppModule {
   constructor() {
+    library.add(faStickyNote);
   }
 }
