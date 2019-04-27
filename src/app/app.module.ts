@@ -9,6 +9,20 @@ import {NotFoundComponent} from './not-found/not-found.component';
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
+import {RouterModule, Routes} from '@angular/router';
+
+const appRoutes: Routes = [
+  {path: 'notes', component: NotesComponent},
+  {path: 'feedback', component: FeedbackComponent},
+  {
+    path: '',
+    redirectTo: '/notes',
+    pathMatch: 'full'
+  },
+  {path: '**', component: NotFoundComponent}
+];
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +32,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     NotFoundComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     FontAwesomeModule
   ],
