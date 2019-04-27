@@ -1,3 +1,28 @@
-<p>
-  feedback works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="offset-2"></div>
+    <div class="col-md-8">
+      <form>
+        <div class="form-group">
+          <label for="userName">Name</label>
+          <input type="text" class="form-control" id="userName" placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+          <label for="userEmail">Email address</label>
+          <input type="email" class="form-control" id="userEmail" placeholder="Your email">
+        </div>
+
+        <div class="form-group">
+          <label for="feedbackText">Feedback</label>
+          <textarea class="form-control" id="feedbackText" placeholder="Your feedback" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-warning float-right">
+          <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+          <span> Send feedback</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
