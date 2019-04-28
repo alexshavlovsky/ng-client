@@ -1,5 +1,5 @@
 export interface FeedbackDTO {
-  name: string;
-  email: string;
-  feedback: string;
+  senderName: string;
+  senderEmail: string;
+  feedbackText: string;
 }
