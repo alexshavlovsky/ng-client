@@ -13,6 +13,7 @@ import {faEnvelope, faStickyNote} from '@fortawesome/free-solid-svg-icons';
 // Modules
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: 'notes', component: NotesComponent},
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
