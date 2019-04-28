@@ -1,16 +1,17 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
+// Components
 import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {NotesComponent} from './notes/notes.component';
 import {NotFoundComponent} from './not-found/not-found.component';
-
+// Font Awesome
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEnvelope, faStickyNote} from '@fortawesome/free-solid-svg-icons';
-
+// Modules
+import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 
 const appRoutes: Routes = [
@@ -24,7 +25,6 @@ const appRoutes: Routes = [
   {path: '**', component: NotFoundComponent}
 ];
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +36,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
+    FormsModule,
     FontAwesomeModule
   ],
   providers: [],
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
 })
 export class AppModule {
   constructor() {
+    // fontawesome library
     library.add(faStickyNote, faEnvelope);
   }
 }
