@@ -14,6 +14,9 @@ import {faEnvelope, faStickyNote} from '@fortawesome/free-solid-svg-icons';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
+// Toasts
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 const appRoutes: Routes = [
   {path: 'notes', component: NotesComponent},
@@ -39,7 +42,9 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({newestOnTop: false})
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,7 +12,7 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  postFeedback(feedback: FeedbackDTO): Observable<object> {
+  postFeedback(feedback: FeedbackDTO): Observable<any> {
     return this.http.post(`${AppSettings.API_BASE_PATH}feedback/`, feedback, AppSettings.httpOptions);
   }
 
