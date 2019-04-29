@@ -1,4 +1,4 @@
-export interface FeedbackDTO {
+export interface FeedbackModel {
   senderName: string;
   senderEmail: string;
   feedbackText: string;
