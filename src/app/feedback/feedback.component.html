@@ -2,39 +2,41 @@
   <div class="row">
     <div class="offset-2"></div>
     <div class="col-md-8">
-      <form (submit)="sendFeedback()">
+      <form #thisForm="ngForm" (submit)="thisForm.valid&&sendFeedback()">
         <div class="form-group">
-          <label for="userName">Name</label>
-          <input type="text"
-                 class="form-control"
-                 id="userName"
+          <label for="idName">Name</label>
+          <input type="text" class="form-control" id="idName"
                  name="userName"
+                 placeholder="Your name"
+                 required
                  [(ngModel)]="model.senderName"
-                 placeholder="Your name">
+                 #thisName="ngModel"
+                 [ngClass]="{'is-invalid':thisForm.submitted&&thisName.invalid}"
+          >
         </div>
-
         <div class="form-group">
-          <label for="userEmail">Email address</label>
-          <input type="email"
-                 class="form-control"
-                 id="userEmail"
+          <label for="idEmail">Email address</label>
+          <input type="email" class="form-control" id="idEmail"
                  name="userEmail"
+                 placeholder="Your email"
+                 required email
                  [(ngModel)]="model.senderEmail"
-                 placeholder="Your email">
+                 #thisEmail="ngModel"
+                 [ngClass]="{'is-invalid':thisForm.submitted&&thisEmail.invalid}"
+          >
         </div>
-
         <div class="form-group">
-          <label for="feedbackText">Feedback</label>
-          <textarea class="form-control"
-                    id="feedbackText"
+          <label for="idFeedback">Feedback</label>
+          <textarea rows="3" class="form-control" id="idFeedback"
                     name="feedbackText"
-                    [(ngModel)]="model.feedbackText"
                     placeholder="Your feedback"
-                    rows="3"></textarea>
+                    required
+                    [(ngModel)]="model.feedbackText"
+                    #thisFeedback="ngModel"
+                    [ngClass]="{'is-invalid':thisForm.submitted&&thisFeedback.invalid}"
+          ></textarea>
         </div>
-
-        <button type="submit"
-                class="btn btn-warning float-right">
+        <button type="submit" class="btn btn-warning float-right">
           <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
           <span> Send feedback</span>
         </button>
