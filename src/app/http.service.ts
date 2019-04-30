@@ -12,8 +12,8 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  postFeedback(feedback: FeedbackModel): Observable<any> {
-    return this.http.post(`${AppSettings.API_BASE_PATH}feedback/`, feedback, AppSettings.httpOptions);
+  postFeedback(formData: any): Observable<any> {
+    return this.http.post(`${AppSettings.API_BASE_PATH}feedback/`, new FeedbackModel(formData), AppSettings.httpOptions);
   }
 
 }

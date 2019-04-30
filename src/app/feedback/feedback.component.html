@@ -2,38 +2,29 @@
   <div class="row">
     <div class="offset-2"></div>
     <div class="col-md-8">
-      <form #thisForm="ngForm" (submit)="thisForm.valid&&sendFeedback()">
+      <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="idName">Name</label>
-          <input type="text" class="form-control" id="idName"
-                 name="userName"
+          <label for="nameInput">Name</label>
+          <input type="text" class="form-control" id="nameInput"
                  placeholder="Your name"
-                 required
-                 [(ngModel)]="model.senderName"
-                 #thisName="ngModel"
-                 [ngClass]="{'is-invalid':thisForm.submitted&&thisName.invalid}"
-          >
+                 formControlName="senderName"
+                 [ngClass]="{ 'is-invalid': submitted && f.senderName.errors }"
+          />
         </div>
         <div class="form-group">
-          <label for="idEmail">Email address</label>
-          <input type="email" class="form-control" id="idEmail"
-                 name="userEmail"
+          <label for="emailInput">Email address</label>
+          <input type="email" class="form-control" id="emailInput"
                  placeholder="Your email"
-                 required email
-                 [(ngModel)]="model.senderEmail"
-                 #thisEmail="ngModel"
-                 [ngClass]="{'is-invalid':thisForm.submitted&&thisEmail.invalid}"
-          >
+                 formControlName="senderEmail"
+                 [ngClass]="{ 'is-invalid': submitted && f.senderEmail.errors }"
+          />
         </div>
         <div class="form-group">
-          <label for="idFeedback">Feedback</label>
-          <textarea rows="3" class="form-control" id="idFeedback"
-                    name="feedbackText"
+          <label for="feedbackInput">Feedback</label>
+          <textarea rows="3" class="form-control" id="feedbackInput"
                     placeholder="Your feedback"
-                    required
-                    [(ngModel)]="model.feedbackText"
-                    #thisFeedback="ngModel"
-                    [ngClass]="{'is-invalid':thisForm.submitted&&thisFeedback.invalid}"
+                    formControlName="feedbackText"
+                    [ngClass]="{ 'is-invalid': submitted && f.feedbackText.errors }"
           ></textarea>
         </div>
         <button type="submit" class="btn btn-warning float-right">

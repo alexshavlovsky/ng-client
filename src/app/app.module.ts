@@ -10,13 +10,16 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEnvelope, faStickyNote} from '@fortawesome/free-solid-svg-icons';
-// Modules
-import {FormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
 // Toasts
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+// Providers
+import {HttpService} from './http.service';
+// Modules
+import {ReactiveFormsModule} from '@angular/forms';
+import {RouterModule, Routes} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+
 
 const appRoutes: Routes = [
   {path: 'notes', component: NotesComponent},
@@ -40,13 +43,13 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({newestOnTop: false})
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

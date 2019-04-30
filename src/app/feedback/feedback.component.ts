@@ -1,36 +1,42 @@
 import {Component, OnInit} from '@angular/core';
-import {FeedbackModel} from '../model/feedback.model';
 import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
-  styleUrls: ['./feedback.component.scss'],
+  styleUrls: ['./feedback.component.scss']
 })
 export class FeedbackComponent implements OnInit {
-  model: FeedbackModel;
+  feedbackForm: FormGroup;
+  submitted = false;
 
-  constructor(private api: HttpService, private toast: ToastrService) {
-    this.model = {
-      senderName: '',
-      senderEmail: '',
-      feedbackText: ''
-    };
+  constructor(private formBuilder: FormBuilder, private api: HttpService, private toast: ToastrService) {
   }
 
   ngOnInit() {
+    this.feedbackForm = this.formBuilder.group({
+      senderName: ['', Validators.required],
+      senderEmail: ['', [Validators.required, Validators.email]],
+      feedbackText: ['', Validators.required]
+    });
   }
 
-  sendFeedback(): void {
-    this.api.postFeedback(this.model).subscribe(
+  get f() {
+    return this.feedbackForm.controls;
+  }
+
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.feedbackForm.invalid) {
+      return;
+    }
+    this.api.postFeedback(this.feedbackForm.value).subscribe(
       a => {
         this.toast.success(a.message);
-        this.model = {
-          senderName: '',
-          senderEmail: '',
-          feedbackText: ''
-        };
+        this.feedbackForm.setValue({senderName: '', senderEmail: '', feedbackText: ''});
+        this.submitted = false;
       },
       b => {
         // TODO: move this logic to the server side???
@@ -43,7 +49,6 @@ export class FeedbackComponent implements OnInit {
           this.toast.error(b.message);
         }
       }
-    )
-    ;
+    );
   }
 }
