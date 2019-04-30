@@ -27,7 +27,7 @@
                     [ngClass]="{ 'is-invalid': submitted && f.feedbackText.errors }"
           ></textarea>
         </div>
-        <button type="submit" class="btn btn-warning float-right">
+        <button type="submit" class="btn btn-warning float-right" [ngClass]="{ 'disabled': btnDisabled }">
           <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
           <span> Send feedback</span>
         </button>

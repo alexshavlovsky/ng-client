@@ -11,6 +11,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class FeedbackComponent implements OnInit {
   feedbackForm: FormGroup;
   submitted = false;
+  btnDisabled = false;
 
   constructor(private formBuilder: FormBuilder, private api: HttpService, private toast: ToastrService) {
   }
@@ -32,22 +33,26 @@ export class FeedbackComponent implements OnInit {
     if (this.feedbackForm.invalid) {
       return;
     }
+    this.btnDisabled = true;
     this.api.postFeedback(this.feedbackForm.value).subscribe(
       a => {
         this.toast.success(a.message);
+        // location.reload();
+        // reset the form state
         this.feedbackForm.setValue({senderName: '', senderEmail: '', feedbackText: ''});
         this.submitted = false;
+        this.btnDisabled = false;
       },
       b => {
-        // TODO: move this logic to the server side???
         if (b.error.error && b.error.errors) {
           this.toast.error(b.error.error);
           for (const e of b.error.errors) {
             this.toast.warning(e.defaultMessage, e.field);
           }
         } else {
-          this.toast.error(b.message);
+          this.toast.error('Failed to send feedback');
         }
+        this.btnDisabled = false;
       }
     );
   }

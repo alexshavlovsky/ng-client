@@ -12,7 +12,7 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEnvelope, faStickyNote} from '@fortawesome/free-solid-svg-icons';
 // Toasts
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ToastrModule} from 'ngx-toastr';
+import {ToastrModule, ToastrService} from 'ngx-toastr';
 // Providers
 import {HttpService} from './http.service';
 // Modules
@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     ToastrModule.forRoot({newestOnTop: false})
   ],
-  providers: [HttpService],
+  providers: [HttpService, ToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
