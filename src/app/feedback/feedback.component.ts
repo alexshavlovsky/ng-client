@@ -12,6 +12,7 @@ export class FeedbackComponent implements OnInit {
   feedbackForm: FormGroup;
   submitted = false;
   btnDisabled = false;
+  submitFailed = false;
 
   constructor(private formBuilder: FormBuilder, private api: HttpService, private toast: ToastrService) {
   }
@@ -24,8 +25,16 @@ export class FeedbackComponent implements OnInit {
     });
   }
 
-  get f() {
-    return this.feedbackForm.controls;
+  get nameErrors() {
+    return this.submitted ? this.feedbackForm.controls.senderName.errors : false;
+  }
+
+  get emailErrors() {
+    return this.submitted ? this.feedbackForm.controls.senderEmail.errors : false;
+  }
+
+  get feedbackErrors() {
+    return this.submitted ? this.feedbackForm.controls.feedbackText.errors : false;
   }
 
   onSubmit(): void {
@@ -34,14 +43,14 @@ export class FeedbackComponent implements OnInit {
       return;
     }
     this.btnDisabled = true;
+    this.submitFailed = false;
     this.api.postFeedback(this.feedbackForm.value).subscribe(
       a => {
         this.toast.success(a.message);
-        // location.reload();
-        // reset the form state
         this.feedbackForm.setValue({senderName: '', senderEmail: '', feedbackText: ''});
         this.submitted = false;
         this.btnDisabled = false;
+        this.submitFailed = false;
       },
       b => {
         if (b.error.error && b.error.errors) {
@@ -53,6 +62,7 @@ export class FeedbackComponent implements OnInit {
           this.toast.error('Failed to send feedback');
         }
         this.btnDisabled = false;
+        this.submitFailed = true;
       }
     );
   }
