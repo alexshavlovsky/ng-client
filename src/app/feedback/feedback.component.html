@@ -9,10 +9,10 @@
           <input id="nameInput" type="text" class="form-control"
                  placeholder="Your name"
                  formControlName="senderName"
-                 [ngClass]="{ 'is-invalid': nameErrors }"
+                 [ngClass]="{ 'is-invalid': nameErrors.hasErrors }"
           />
-          <div *ngIf="nameErrors" class="invalid-feedback">
-            <div *ngIf="nameErrors.required">Name is required</div>
+          <div *ngIf="nameErrors.hasErrors" class="invalid-feedback">
+            <div *ngIf="nameErrors.errors.required">Name is required</div>
           </div>
         </div>
         <!--email-->
@@ -21,11 +21,11 @@
           <input id="emailInput" type="email" class="form-control"
                  placeholder="Your email"
                  formControlName="senderEmail"
-                 [ngClass]="{ 'is-invalid': emailErrors }"
+                 [ngClass]="{ 'is-invalid': emailErrors.hasErrors }"
           />
-          <div *ngIf="emailErrors" class="invalid-feedback">
-            <div *ngIf="emailErrors.required">Email is required</div>
-            <div *ngIf="emailErrors.email">Email must be a valid email address</div>
+          <div *ngIf="emailErrors.hasErrors" class="invalid-feedback">
+            <div *ngIf="emailErrors.errors.required">Email is required</div>
+            <div *ngIf="emailErrors.errors.email">Email must be a valid email address</div>
           </div>
         </div>
         <!--feedback-->
@@ -34,10 +34,10 @@
           <textarea id="feedbackInput" rows="3" class="form-control"
                     placeholder="Your feedback"
                     formControlName="feedbackText"
-                    [ngClass]="{ 'is-invalid': feedbackErrors }"
+                    [ngClass]="{ 'is-invalid': feedbackErrors.hasErrors }"
           ></textarea>
-          <div *ngIf="feedbackErrors" class="invalid-feedback">
-            <div *ngIf="feedbackErrors.required">Feedback is required</div>
+          <div *ngIf="feedbackErrors.hasErrors" class="invalid-feedback">
+            <div *ngIf="feedbackErrors.errors.required">Feedback is required</div>
           </div>
         </div>
         <!--button-->

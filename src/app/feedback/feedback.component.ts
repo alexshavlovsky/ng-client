@@ -14,7 +14,9 @@ export class FeedbackComponent implements OnInit {
   btnDisabled = false;
   submitFailed = false;
 
-  constructor(private formBuilder: FormBuilder, private api: HttpService, private toast: ToastrService) {
+  constructor(private formBuilder: FormBuilder,
+              private api: HttpService,
+              private toast: ToastrService) {
   }
 
   ngOnInit() {
@@ -26,15 +28,18 @@ export class FeedbackComponent implements OnInit {
   }
 
   get nameErrors() {
-    return this.submitted ? this.feedbackForm.controls.senderName.errors : false;
+    const err = this.feedbackForm.controls.senderName.errors;
+    return {hasErrors: this.submitted && err, errors: err};
   }
 
   get emailErrors() {
-    return this.submitted ? this.feedbackForm.controls.senderEmail.errors : false;
+    const err = this.feedbackForm.controls.senderEmail.errors;
+    return {hasErrors: this.submitted && err, errors: err};
   }
 
   get feedbackErrors() {
-    return this.submitted ? this.feedbackForm.controls.feedbackText.errors : false;
+    const err = this.feedbackForm.controls.feedbackText.errors;
+    return {hasErrors: this.submitted && err, errors: err};
   }
 
   onSubmit(): void {
@@ -45,17 +50,17 @@ export class FeedbackComponent implements OnInit {
     this.btnDisabled = true;
     this.submitFailed = false;
     this.api.postFeedback(this.feedbackForm.value).subscribe(
-      a => {
-        this.toast.success(a.message);
+      res => {
+        this.toast.success(res.message);
         this.feedbackForm.setValue({senderName: '', senderEmail: '', feedbackText: ''});
         this.submitted = false;
         this.btnDisabled = false;
         this.submitFailed = false;
       },
-      b => {
-        if (b.error.error && b.error.errors) {
-          this.toast.error(b.error.error);
-          for (const e of b.error.errors) {
+      err => {
+        if (err.error.error && err.error.errors) {
+          this.toast.error(err.error.error);
+          for (const e of err.error.errors) {
             this.toast.warning(e.defaultMessage, e.field);
           }
         } else {
