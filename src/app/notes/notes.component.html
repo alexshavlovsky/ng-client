@@ -1,16 +1,26 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-4">
       <h4>Notebooks</h4>
       <ul class="list-group">
         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            *ngFor="let notebook of notebooks">
+            *ngFor="let notebook of notebooks | paginate: { itemsPerPage: 5, currentPage: page }">
           <span>{{notebook.name}}</span>
           <span class="badge badge-primary badge-pill">{{notebook.size}}</span>
         </li>
       </ul>
+      <div class="mt-2">
+        <pagination-controls (pageChange)="page = $event"
+                             maxSize=5
+                             responsive="true"
+                             autoHide="true"
+                             previousLabel=""
+                             nextLabel=""
+                             class="mt-2"
+        ></pagination-controls>
+      </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-lg-8">
 
     </div>
   </div>

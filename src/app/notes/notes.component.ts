@@ -10,6 +10,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class NotesComponent implements OnInit {
   notebooks: NotebookModel[] = [];
+  page = 0;
 
   constructor(private http: HttpService,
               private toast: ToastrService) {

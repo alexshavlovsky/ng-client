@@ -13,3 +13,4 @@ Styles and templates | Bootstrap 4
 Icons                | [angular-fontawesome](https://github.com/FortAwesome/angular-fontawesome)
 Pop-up notifications | [ngx-toastr](https://github.com/scttcper/ngx-toastr)
 Forms                | Angular Reactive Forms
+Pagination           | [ngx-pagination](https://github.com/michaelbromley/ngx-pagination)
