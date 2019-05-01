@@ -16,4 +16,8 @@ export class HttpService {
     return this.http.post(`${AppSettings.API_BASE_PATH}feedback/`, new FeedbackModel(formData), AppSettings.httpOptions);
   }
 
+  getAllNotebooks(): Observable<any[]> {
+    return this.http.get<any[]>(`${AppSettings.API_BASE_PATH}notebooks/`, AppSettings.httpOptions);
+  }
+
 }
