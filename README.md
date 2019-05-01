@@ -1,8 +1,8 @@
-# Angular REST client
+# MyNotes Angular Client
 
 Basic Angular REST API client.
 
-Backend service for this project: [SpringBoot REST service](https://github.com/alexshavlovsky/SpringBoot-REST-service).
+Backend service for this project: [MyNotes SpringBoot Service](https://github.com/alexshavlovsky/mynotes-springboot-service).
 
 ## Technology Stack
 Component            | Technology
@@ -12,3 +12,4 @@ JS framework         | Angular 7
 Styles and templates | Bootstrap 4
 Icons                | [angular-fontawesome](https://github.com/FortAwesome/angular-fontawesome)
 Pop-up notifications | [ngx-toastr](https://github.com/scttcper/ngx-toastr)
+Forms                | Angular Reactive Forms
