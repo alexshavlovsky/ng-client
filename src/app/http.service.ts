@@ -20,4 +20,8 @@ export class HttpService {
     return this.http.get<any[]>(`${AppSettings.API_BASE_PATH}notebooks/`, AppSettings.httpOptions);
   }
 
+  getAllNotes(): Observable<any[]> {
+    return this.http.get<any[]>(`${AppSettings.API_BASE_PATH}notes/`, AppSettings.httpOptions);
+  }
+
 }
