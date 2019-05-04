@@ -9,14 +9,14 @@ import {NotFoundComponent} from './not-found/not-found.component';
 // Font Awesome
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faEnvelope, faStickyNote} from '@fortawesome/free-solid-svg-icons';
+import {faEnvelope, faPen, faPlusCircle, faStickyNote, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 // Toasts
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule, ToastrService} from 'ngx-toastr';
 // Providers
 import {HttpService} from './http.service';
 // Modules
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     NgxPaginationModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, FormsModule,
     FontAwesomeModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -57,6 +57,6 @@ const appRoutes: Routes = [
 export class AppModule {
   constructor() {
     // fontawesome library
-    library.add(faStickyNote, faEnvelope);
+    library.add(faStickyNote, faEnvelope, faPen, faTrashAlt, faPlusCircle);
   }
 }

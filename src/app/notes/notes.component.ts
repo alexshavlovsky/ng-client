@@ -11,6 +11,8 @@ import {ToastrService} from 'ngx-toastr';
 export class NotesComponent implements OnInit {
   notebooks: NotebookModel[] = [];
   page = 0;
+  nbFetchFailed = false;
+  notesFetchFailed = false;
 
   constructor(private http: HttpService,
               private toast: ToastrService) {
@@ -18,8 +20,14 @@ export class NotesComponent implements OnInit {
 
   ngOnInit() {
     this.http.getAllNotebooks().subscribe(
-      res => this.notebooks = res.map(dto => new NotebookModel(dto)),
-      err => this.toast.error('Failed to get notebooks')
+      res => {
+        this.notebooks = res.map(dto => new NotebookModel(dto));
+        this.notesFetchFailed = true;
+      },
+      err => {
+        this.toast.error('Failed to get notebooks');
+        this.nbFetchFailed = true;
+      }
     );
   }
 
