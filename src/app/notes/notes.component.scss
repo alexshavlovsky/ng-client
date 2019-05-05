@@ -1,0 +1,22 @@
+input {
+  min-width: 5ch;
+  background-color: transparent;
+  border: 0;
+}
+
+/deep/ ul.ngx-pagination {
+  padding-left: 0;
+
+  li {
+    &.current {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    a {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+
+}

@@ -13,15 +13,28 @@ export class HttpService {
   }
 
   postFeedback(formData: any): Observable<any> {
-    return this.http.post(`${AppSettings.API_BASE_PATH}feedback/`, new FeedbackModel(formData), AppSettings.httpOptions);
+    return this.http.post(AppSettings.API_FEEDBACK_PATH, new FeedbackModel(formData), AppSettings.httpOptions);
   }
 
   getAllNotebooks(): Observable<any[]> {
-    return this.http.get<any[]>(`${AppSettings.API_BASE_PATH}notebooks/`, AppSettings.httpOptions);
+    return this.http.get<any[]>(AppSettings.API_NOTEBOOKS_PATH, AppSettings.httpOptions);
+  }
+
+  createNotebook(notebookName: string): Observable<any> {
+    return this.http.post(AppSettings.API_NOTEBOOKS_PATH, {name: notebookName}, AppSettings.httpOptions);
+  }
+
+  updateNotebook(nbId: number, nbName: string): Observable<any> {
+    return this.http.put(`${AppSettings.API_NOTEBOOKS_PATH}${nbId}/`,
+      {id: nbId, name: nbName}, AppSettings.httpOptions);
+  }
+
+  deleteNotebook(nbId: number): Observable<any> {
+    return this.http.delete(`${AppSettings.API_NOTEBOOKS_PATH}${nbId}/`, AppSettings.httpOptions);
   }
 
   getAllNotes(): Observable<any[]> {
-    return this.http.get<any[]>(`${AppSettings.API_BASE_PATH}notes/`, AppSettings.httpOptions);
+    return this.http.get<any[]>(AppSettings.API_NOTES_PATH, AppSettings.httpOptions);
   }
 
 }

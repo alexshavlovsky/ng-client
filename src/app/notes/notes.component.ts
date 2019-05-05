@@ -43,4 +43,30 @@ export class NotesComponent implements OnInit {
     );
   }
 
+  createNotebook() {
+    this.http.createNotebook('New notebook').subscribe(
+      res => this.notebooks.push(new NotebookModel(res)),
+      err => this.toast.error('Failed to create notebook')
+    );
+  }
+
+  updateNotebook(notebook: NotebookModel) {
+    this.http.updateNotebook(notebook.id, notebook.name).subscribe(
+      res => {
+        Object.assign(notebook, new NotebookModel(res));
+        this.toast.success('Notebook updated');
+      },
+      err => this.toast.error('Failed to update notebook')
+    );
+  }
+
+  deleteNotebook(notebook: NotebookModel) {
+    this.http.deleteNotebook(notebook.id).subscribe(
+      res => {
+        this.notebooks.splice(this.notebooks.indexOf(notebook), 1);
+        this.toast.success(res.message);
+      },
+      err => this.toast.error('Failed to delete notebook')
+    );
+  }
 }
