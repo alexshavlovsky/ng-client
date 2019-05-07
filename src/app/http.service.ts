@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {AppSettings} from './app.settings';
 import {FeedbackModel} from './model/feedback.model';
 import {Observable} from 'rxjs';
@@ -35,6 +35,11 @@ export class HttpService {
 
   getAllNotes(): Observable<any[]> {
     return this.http.get<any[]>(AppSettings.API_NOTES_PATH, AppSettings.httpOptions);
+  }
+
+  getAllNotesByNotebook(nbId: number): Observable<any[]> {
+    return this.http.get<any[]>(AppSettings.API_NOTES_PATH,
+      {params: new HttpParams().set('nbId', String(nbId)), ...AppSettings.httpOptions});
   }
 
 }

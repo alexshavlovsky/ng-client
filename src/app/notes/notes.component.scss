@@ -1,7 +1,26 @@
-input {
-  min-width: 5ch;
-  background-color: transparent;
-  border: 0;
+li {
+  * {
+    cursor: default;
+  }
+
+  button, button > * { // selector for delete notebook icon
+    cursor: pointer;
+  }
+
+  input { // make input[text] look like simple text
+    min-width: 5ch;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+  }
+
+  &.active > input { // selector for active notebook
+    cursor: text;
+  }
+}
+
+div.modal-body > input {
+  width: 100%;
 }
 
 /deep/ ul.ngx-pagination {
