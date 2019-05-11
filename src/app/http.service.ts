@@ -25,12 +25,16 @@ export class HttpService {
   }
 
   updateNotebook(nbId: number, nbName: string): Observable<any> {
-    return this.http.put(`${AppSettings.API_NOTEBOOKS_PATH}${nbId}/`,
+    return this.http.put(`${AppSettings.API_NOTEBOOKS_PATH}${nbId}`,
       {id: nbId, name: nbName}, AppSettings.httpOptions);
   }
 
   deleteNotebook(nbId: number): Observable<any> {
-    return this.http.delete(`${AppSettings.API_NOTEBOOKS_PATH}${nbId}/`, AppSettings.httpOptions);
+    return this.http.delete(`${AppSettings.API_NOTEBOOKS_PATH}${nbId}`, AppSettings.httpOptions);
+  }
+
+  deleteNote(nbId: number): Observable<any> {
+    return this.http.delete(`${AppSettings.API_NOTES_PATH}${nbId}`, AppSettings.httpOptions);
   }
 
   getAllNotes(): Observable<any[]> {

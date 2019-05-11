@@ -62,7 +62,7 @@
           <div class="card-header d-flex align-items-center pr-1 pt-1 pb-1">
             <div class="flex-grow-1">{{note.title}}</div>
             <button type="button" class="btn btn-sm">
-              <fa-icon [icon]="['fas', 'trash-alt']" class="text-danger"></fa-icon>
+              <fa-icon [icon]="['fas', 'trash-alt']" (click)="deleteNote(note)" class="text-danger"></fa-icon>
             </button>
           </div>
 
@@ -110,15 +110,15 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-primary" id="newNoteTitle">
+        <h5 class="modal-title" id="newNoteTitle">New note in the <span class="text-primary">
           <fa-icon [icon]="['fas', 'sticky-note']"></fa-icon>
-          {{selectedNb.name}}</h5>
+          {{selectedNb.name}}</span></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <label for="inputNoteTitle">New note title:</label>
+        <label for="inputNoteTitle">Title:</label>
         <input type="text"
                id="inputNoteTitle"
                [(ngModel)]="newNoteTitle"

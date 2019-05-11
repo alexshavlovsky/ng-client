@@ -23,7 +23,7 @@ export class NotesComponent implements OnInit {
   newNotebookName = 'New notebook';
   newNoteTitle = 'New note';
   newNoteText = 'New note text';
-  selectedNb: NotebookModel;
+  selectedNb: NotebookModel = null;
 
   ngOnInit() {
     this.getAllNb();
@@ -100,7 +100,6 @@ export class NotesComponent implements OnInit {
     );
   }
 
-
   updateNotebook(event: any, notebook: NotebookModel) {
     this.http.updateNotebook(notebook.id, event.target.value).subscribe(
       res => {
@@ -125,6 +124,17 @@ export class NotesComponent implements OnInit {
         this.toast.success(res.message);
       },
       err => this.toast.error('Failed to delete notebook')
+    );
+  }
+
+  deleteNote(note: NoteModel) {
+    this.http.deleteNote(note.id).subscribe(
+      res => {
+        this.notebooks.find(n => n.id === note.notebook).size--;
+        this.notes.splice(this.notes.indexOf(note), 1);
+        this.toast.success(res.message);
+      },
+      err => this.toast.error('Failed to delete note')
     );
   }
 
