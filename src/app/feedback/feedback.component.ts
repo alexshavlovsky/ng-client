@@ -29,17 +29,17 @@ export class FeedbackComponent implements OnInit {
 
   get nameErrors() {
     const err = this.feedbackForm.controls.senderName.errors;
-    return {hasErrors: this.submitted && err, errors: err};
+    return {hasErrors: this.submitted && err !== null, errors: err};
   }
 
   get emailErrors() {
     const err = this.feedbackForm.controls.senderEmail.errors;
-    return {hasErrors: this.submitted && err, errors: err};
+    return {hasErrors: this.submitted && err !== null, errors: err};
   }
 
   get feedbackErrors() {
     const err = this.feedbackForm.controls.feedbackText.errors;
-    return {hasErrors: this.submitted && err, errors: err};
+    return {hasErrors: this.submitted && err !== null, errors: err};
   }
 
   onSubmit(): void {

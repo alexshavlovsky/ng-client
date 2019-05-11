@@ -21,7 +21,9 @@ export class NotesComponent implements OnInit {
   nbFetchFailed = false;
   notesFetchFailed = false;
   newNotebookName = 'New notebook';
-  selectedNb;
+  newNoteTitle = 'New note';
+  newNoteText = 'New note text';
+  selectedNb: NotebookModel;
 
   ngOnInit() {
     this.getAllNb();
@@ -87,6 +89,17 @@ export class NotesComponent implements OnInit {
       err => this.toast.error('Failed to create notebook')
     );
   }
+
+  createNote(name: string, title: string, nbId: number) {
+    this.http.createNote(name, title, nbId).subscribe(
+      res => {
+        this.notes.push(new NoteModel(res));
+        this.selectedNb.size++;
+      },
+      err => this.toast.error('Failed to create note')
+    );
+  }
+
 
   updateNotebook(event: any, notebook: NotebookModel) {
     this.http.updateNotebook(notebook.id, event.target.value).subscribe(
