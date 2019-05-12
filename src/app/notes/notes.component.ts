@@ -93,10 +93,25 @@ export class NotesComponent implements OnInit {
   createNote(name: string, title: string, nbId: number) {
     this.http.createNote(name, title, nbId).subscribe(
       res => {
-        this.notes.push(new NoteModel(res));
-        this.selectedNb.size++;
+        const newNote = new NoteModel(res);
+        this.notes.push(newNote);
+        this.addSizeByNote(newNote, 1);
       },
       err => this.toast.error('Failed to create note')
+    );
+  }
+
+  updateNoteTitle(event: any, note: NoteModel) {
+    this.http.updateNote(note.id, event.target.value, note.text, note.notebook).subscribe(
+      res => {
+        Object.assign(note, new NoteModel(res));
+        event.target.value = note.title;
+        this.toast.success('Note updated');
+      },
+      err => {
+        event.target.value = note.title;
+        this.toast.error('Failed to update note');
+      }
     );
   }
 
@@ -127,10 +142,21 @@ export class NotesComponent implements OnInit {
     );
   }
 
+  getNbByNote(note: NoteModel): NotebookModel {
+    return this.notebooks.find(n => n.id === note.notebook);
+  }
+
+  addSizeByNote(n: NoteModel, d: number) {
+    const nb = this.getNbByNote(n);
+    if (nb !== undefined) {
+      nb.size += d;
+    }
+  }
+
   deleteNote(note: NoteModel) {
     this.http.deleteNote(note.id).subscribe(
       res => {
-        this.notebooks.find(n => n.id === note.notebook).size--;
+        this.addSizeByNote(note, -1);
         this.notes.splice(this.notes.indexOf(note), 1);
         this.toast.success(res.message);
       },

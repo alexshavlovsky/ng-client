@@ -1,4 +1,13 @@
-li {
+div.card-header { // title of note card
+  input { // make input[text] look like simple text
+    min-width: 5ch;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+  }
+}
+
+li { // list of notebooks
   * {
     cursor: default;
   }

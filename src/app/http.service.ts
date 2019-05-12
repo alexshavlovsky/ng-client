@@ -45,6 +45,11 @@ export class HttpService {
     return this.http.post(AppSettings.API_NOTES_PATH, {title, text, notebook: {id}}, AppSettings.httpOptions);
   }
 
+  updateNote(id: number, title: string, text: string, nbId: number): Observable<any> {
+    return this.http.put(`${AppSettings.API_NOTES_PATH}${id}`,
+      {id, title, text, notebook: {id: nbId}}, AppSettings.httpOptions);
+  }
+
   getAllNotesByNotebook(nbId: number): Observable<any[]> {
     return this.http.get<any[]>(AppSettings.API_NOTES_PATH,
       {params: new HttpParams().set('nbId', String(nbId)), ...AppSettings.httpOptions});

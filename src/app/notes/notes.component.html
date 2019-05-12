@@ -60,15 +60,20 @@
 
           <!--Title and delete note button-->
           <div class="card-header d-flex align-items-center pr-1 pt-1 pb-1">
-            <div class="flex-grow-1">{{note.title}}</div>
-            <button type="button" class="btn btn-sm">
-              <fa-icon [icon]="['fas', 'trash-alt']" (click)="deleteNote(note)" class="text-danger"></fa-icon>
+            <input class="flex-grow-1" type="text" value="{{note.title}}"
+                   (change)="updateNoteTitle($event,note)"
+            >
+            <button type="button" class="btn btn-sm" (click)="deleteNote(note)">
+              <fa-icon [icon]="['fas', 'trash-alt']" class="text-danger"></fa-icon>
             </button>
           </div>
 
           <!--Note content-->
           <div class="card-body">
             <p class="card-text">{{note.text}}</p>
+            <p class="card-text">
+              <small class="text-muted">{{note.modifiedAgo()}}</small>
+            </p>
           </div>
         </div>
       </div>
@@ -110,9 +115,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newNoteTitle">New note in the <span class="text-primary">
-          <fa-icon [icon]="['fas', 'sticky-note']"></fa-icon>
-          {{selectedNb.name}}</span></h5>
+        <h5 class="modal-title" id="newNoteTitle">Create note in "{{selectedNb?.name}}"</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
