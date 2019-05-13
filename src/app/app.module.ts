@@ -12,15 +12,13 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {faEnvelope, faPen, faPlusCircle, faStickyNote, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 // Toasts
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ToastrModule, ToastrService} from 'ngx-toastr';
-// Providers
-import {HttpService} from './http.service';
+import {ToastrModule} from 'ngx-toastr';
 // Modules
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import {APP_CONFIG, AppConfig} from './app.config';
 
 const appRoutes: Routes = [
   {path: 'notes', component: NotesComponent},
@@ -51,7 +49,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     ToastrModule.forRoot({newestOnTop: false})
   ],
-  providers: [HttpService, ToastrService],
+  providers: [{provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
