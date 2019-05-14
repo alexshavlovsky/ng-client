@@ -12,6 +12,7 @@ export class HttpService {
   API_FEEDBACK_PATH = `${this.API_BASE_PATH}feedback/`;
   API_NOTEBOOKS_PATH = `${this.API_BASE_PATH}notebooks/`;
   API_NOTES_PATH = `${this.API_BASE_PATH}notes/`;
+  API_COMMAND_PATH = `${this.API_BASE_PATH}command/`;
   httpOptions = {
     headers: new HttpHeaders({
       Accept: 'application/json',
@@ -25,6 +26,10 @@ export class HttpService {
 
   postFeedback(formData: any): Observable<any> {
     return this.http.post(this.API_FEEDBACK_PATH, new FeedbackModel(formData), this.httpOptions);
+  }
+
+  postCommand(command: string): Observable<any> {
+    return this.http.post(this.API_COMMAND_PATH, {command}, this.httpOptions);
   }
 
   getAllNotebooks(): Observable<any[]> {
