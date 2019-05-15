@@ -69,10 +69,11 @@
           </div>
 
           <!--Note content-->
-          <div class="card-body">
-            <p class="card-text">{{note.text}}</p>
+          <div class="card-body pb-2">
+            <textarea autosize class="form-control" (change)="updateNoteText($event,note)"
+            >{{note.text}}</textarea>
             <p class="card-text">
-              <small class="text-muted">{{note.modifiedAgo()}}</small>
+              <small class="text-muted float-right mt-3">{{note.modifiedAgo()}}</small>
             </p>
           </div>
         </div>

@@ -1,3 +1,11 @@
+textarea.form-control { // note text
+  resize: none;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  padding: 0;
+}
+
 div.card-header { // title of note card
   input { // make input[text] look like simple text
     min-width: 5ch;

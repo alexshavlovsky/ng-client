@@ -115,6 +115,20 @@ export class NotesComponent implements OnInit {
     );
   }
 
+  updateNoteText(event: any, note: NoteModel) {
+    this.http.updateNote(note.id, note.title, event.target.value, note.notebook).subscribe(
+      res => {
+        Object.assign(note, new NoteModel(res));
+        event.target.value = note.text;
+        this.toast.success('Note updated');
+      },
+      err => {
+        event.target.value = note.text;
+        this.toast.error('Failed to update note');
+      }
+    );
+  }
+
   updateNotebook(event: any, notebook: NotebookModel) {
     this.http.updateNotebook(notebook.id, event.target.value).subscribe(
       res => {

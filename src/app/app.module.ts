@@ -19,6 +19,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {APP_CONFIG, AppConfig} from './app.config';
+import {AutosizeModule} from 'ngx-autosize';
 
 const appRoutes: Routes = [
   {path: 'notes', component: NotesComponent},
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AutosizeModule,
     ToastrModule.forRoot({newestOnTop: false})
   ],
   providers: [{provide: APP_CONFIG, useValue: AppConfig}],
