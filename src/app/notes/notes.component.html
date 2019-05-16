@@ -70,7 +70,7 @@
 
           <!--Note content-->
           <div class="card-body pb-2">
-            <textarea autosize class="form-control" (change)="updateNoteText($event,note)"
+            <textarea autosize class="form-control note-text" (change)="updateNoteText($event,note)"
             >{{note.text}}</textarea>
             <p class="card-text">
               <small class="text-muted float-right mt-3">{{note.modifiedAgo()}}</small>
