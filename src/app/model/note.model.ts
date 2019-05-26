@@ -23,7 +23,7 @@ export class NoteModel {
   id: number;
   title: string;
   text: string;
-  notebook: number;
+  notebookId: number;
   lastModifiedOn: Date;
 
   static agoTemplate(t, n) {

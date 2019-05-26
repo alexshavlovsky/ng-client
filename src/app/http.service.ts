@@ -40,9 +40,9 @@ export class HttpService {
     return this.http.post(this.API_NOTEBOOKS_PATH, {name: notebookName}, this.httpOptions);
   }
 
-  updateNotebook(nbId: number, nbName: string): Observable<any> {
+  updateNotebook(nbId: number, name: string): Observable<any> {
     return this.http.put(`${this.API_NOTEBOOKS_PATH}${nbId}`,
-      {id: nbId, name: nbName}, this.httpOptions);
+      {name}, this.httpOptions);
   }
 
   deleteNotebook(nbId: number): Observable<any> {
@@ -57,13 +57,12 @@ export class HttpService {
     return this.http.get<any[]>(this.API_NOTES_PATH, this.httpOptions);
   }
 
-  createNote(title: string, text: string, id: number): Observable<any> {
-    return this.http.post(this.API_NOTES_PATH, {title, text, notebook: {id}}, this.httpOptions);
+  createNote(title: string, text: string, notebookId: number): Observable<any> {
+    return this.http.post(this.API_NOTES_PATH, {title, text, notebookId}, this.httpOptions);
   }
 
-  updateNote(id: number, title: string, text: string, nbId: number): Observable<any> {
-    return this.http.put(`${this.API_NOTES_PATH}${id}`,
-      {id, title, text, notebook: {id: nbId}}, this.httpOptions);
+  updateNote(id: number, title: string, text: string, notebookId: number): Observable<any> {
+    return this.http.put(`${this.API_NOTES_PATH}${id}`, {title, text, notebookId}, this.httpOptions);
   }
 
   getAllNotesByNotebook(nbId: number): Observable<any[]> {

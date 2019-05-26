@@ -102,7 +102,7 @@ export class NotesComponent implements OnInit {
   }
 
   updateNoteTitle(event: any, note: NoteModel) {
-    this.http.updateNote(note.id, event.target.value, note.text, note.notebook).subscribe(
+    this.http.updateNote(note.id, event.target.value, note.text, note.notebookId).subscribe(
       res => {
         Object.assign(note, new NoteModel(res));
         event.target.value = note.title;
@@ -116,7 +116,7 @@ export class NotesComponent implements OnInit {
   }
 
   updateNoteText(event: any, note: NoteModel) {
-    this.http.updateNote(note.id, note.title, event.target.value, note.notebook).subscribe(
+    this.http.updateNote(note.id, note.title, event.target.value, note.notebookId).subscribe(
       res => {
         Object.assign(note, new NoteModel(res));
         event.target.value = note.text;
@@ -157,7 +157,7 @@ export class NotesComponent implements OnInit {
   }
 
   getNbByNote(note: NoteModel): NotebookModel {
-    return this.notebooks.find(n => n.id === note.notebook);
+    return this.notebooks.find(n => n.id === note.notebookId);
   }
 
   addSizeByNote(n: NoteModel, d: number) {
