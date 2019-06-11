@@ -1,3 +1,75 @@
-<p>
-  register works!
-</p>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">New to MyNotes? Sign up!</div>
+      <div class="card-body">
+        <!--form-->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <!--first name-->
+          <div class="form-group">
+            <label for="fnInput">First Name</label>
+            <input id="fnInput" type="text" class="form-control"
+                   placeholder="First Name"
+                   formControlName="firstName"
+                   [ngClass]="{ 'is-invalid': firstNameErrors.hasErrors }"
+            />
+            <div *ngIf="firstNameErrors.hasErrors" class="invalid-feedback">
+              <div *ngIf="firstNameErrors.errors.required">First Name is required</div>
+            </div>
+          </div>
+          <!--last name-->
+          <div class="form-group">
+            <label for="lnInput">Last Name</label>
+            <input id="lnInput" type="text" class="form-control"
+                   placeholder="Last Name"
+                   formControlName="lastName"
+            />
+          </div>
+          <!--email-->
+          <div class="form-group">
+            <label for="emailInput">Email address</label>
+            <input id="emailInput" type="email" class="form-control"
+                   placeholder="Email address"
+                   formControlName="email"
+                   [ngClass]="{ 'is-invalid': emailErrors.hasErrors }"
+            />
+            <div *ngIf="emailErrors.hasErrors" class="invalid-feedback">
+              <div *ngIf="emailErrors.errors.required">Email is required</div>
+              <div *ngIf="emailErrors.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
+          <!--password-->
+          <div class="form-group">
+            <label for="passInput">Password</label>
+            <input id="passInput" type="password" class="form-control"
+                   formControlName="password"
+                   [ngClass]="{ 'is-invalid': passwordErrors.hasErrors }"
+            />
+            <div *ngIf="passwordErrors.hasErrors" class="invalid-feedback">
+              <div *ngIf="passwordErrors.errors.required">Password is required</div>
+            </div>
+          </div>
+          <!--confirm password-->
+          <div class="form-group">
+            <label for="cnfPassInput">Confirm password</label>
+            <input id="cnfPassInput" type="password" class="form-control"
+                   formControlName="confirmPassword"
+                   [ngClass]="{ 'is-invalid': confirmPasswordErrors.hasErrors }"
+            />
+            <div *ngIf="confirmPasswordErrors.hasErrors" class="invalid-feedback">Passwords do not match</div>
+          </div>
+          <!--button-->
+          <div class="form-group">
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary" [disabled]="btnDisabled">
+                <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
+                <span> Sign up</span>
+              </button>
+            </div>
+            <div *ngIf="this.submitFailed" class="invalid-feedback d-block">Failed to sign up</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

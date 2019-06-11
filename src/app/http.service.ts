@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {FeedbackModel} from './model/feedback.model';
 import {Observable} from 'rxjs';
 import {APP_CONFIG, IAppConfig} from './app.config';
+import {UserModel} from './model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class HttpService {
   API_FEEDBACK_PATH = `${this.API_BASE_PATH}feedback/`;
   API_NOTEBOOKS_PATH = `${this.API_BASE_PATH}notebooks/`;
   API_NOTES_PATH = `${this.API_BASE_PATH}notes/`;
+  API_USERS_PATH = `${this.API_BASE_PATH}users/`;
   API_COMMAND_PATH = `${this.API_BASE_PATH}command/`;
   httpOptions = {
     headers: new HttpHeaders({
@@ -26,6 +28,10 @@ export class HttpService {
 
   postFeedback(formData: any): Observable<any> {
     return this.http.post(this.API_FEEDBACK_PATH, new FeedbackModel(formData), this.httpOptions);
+  }
+
+  postNewUser(formData: any): Observable<any> {
+    return this.http.post(this.API_USERS_PATH, new UserModel(formData), this.httpOptions);
   }
 
   postCommand(command: string): Observable<any> {
