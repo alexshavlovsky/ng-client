@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <a class="navbar-brand text-warning" aria-pressed="true" [routerLink]="'/'">
     <fa-icon [icon]="['fas', 'sticky-note']"></fa-icon>
     <span> My Notes</span>
@@ -29,6 +29,18 @@
             class="badge badge-pill badge-danger">!</span> Shutdown backend
           </button>
         </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item" [routerLinkActive]="'active'">
+        <a class="nav-link" [routerLink]="'/register'">
+          <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
+          Sign up</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="'active'">
+        <a class="nav-link" [routerLink]="'/login'">
+          <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
+          Sign in</a>
       </li>
     </ul>
   </div>

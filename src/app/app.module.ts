@@ -9,7 +9,17 @@ import {NotFoundComponent} from './not-found/not-found.component';
 // Font Awesome
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faEnvelope, faPen, faPlusCircle, faStickyNote, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {
+  faEnvelope,
+  faPen,
+  faPlusCircle,
+  faSignInAlt,
+  faSignOutAlt,
+  faStickyNote,
+  faTrashAlt,
+  faUser,
+  faUserPlus
+} from '@fortawesome/free-solid-svg-icons';
 // Toasts
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
@@ -20,10 +30,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {APP_CONFIG, AppConfig} from './app.config';
 import {AutosizeModule} from 'ngx-autosize';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+
 
 const appRoutes: Routes = [
   {path: 'notes', component: NotesComponent},
   {path: 'feedback', component: FeedbackComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent},
   {
     path: '',
     redirectTo: '/notes',
@@ -38,7 +53,9 @@ const appRoutes: Routes = [
     NavBarComponent,
     FeedbackComponent,
     NotesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -57,6 +74,6 @@ const appRoutes: Routes = [
 export class AppModule {
   constructor() {
     // fontawesome library
-    library.add(faStickyNote, faEnvelope, faPen, faTrashAlt, faPlusCircle);
+    library.add(faStickyNote, faEnvelope, faPen, faTrashAlt, faPlusCircle, faUserPlus, faUser, faSignInAlt, faSignOutAlt);
   }
 }
