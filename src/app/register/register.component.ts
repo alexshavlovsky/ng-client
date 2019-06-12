@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
 
@@ -9,22 +9,23 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  form: FormGroup;
+  submitFailed = false;
 
   constructor(private formBuilder: FormBuilder,
               private api: HttpService,
               private toast: ToastrService) {
   }
 
-  form: FormGroup;
-
-  submitted = false;
-  btnDisabled = false;
-  submitFailed = false;
-
   static checkPasswords(group: FormGroup) {
     const pass = group.controls.password.value;
     const confirmPass = group.controls.confirmPassword.value;
-    return pass === confirmPass ? null : {notSame: true};
+    return pass === confirmPass ? null : {notMatch: true};
+  }
+
+  static adaptErrors(control: AbstractControl, errDesc) {
+    return control.invalid && (control.dirty || control.touched) ?
+      [...Object.getOwnPropertyNames(control.errors)].map(x => errDesc[x]) : null;
   }
 
   ngOnInit() {
@@ -38,48 +39,38 @@ export class RegisterComponent implements OnInit {
   }
 
   get firstNameErrors() {
-    const err = this.form.controls.firstName.errors;
-    return {hasErrors: this.submitted && err !== null, errors: err};
+    return RegisterComponent.adaptErrors(this.form.controls.firstName, {required: 'First Name is required'});
   }
 
   get emailErrors() {
-    const err = this.form.controls.email.errors;
-    return {hasErrors: this.submitted && err !== null, errors: err};
+    return RegisterComponent.adaptErrors(this.form.controls.email,
+      {required: 'Email is required', email: 'Email must be a valid email address'});
   }
 
   get passwordErrors() {
-    const err = this.form.controls.password.errors;
-    return {hasErrors: this.submitted && err !== null, errors: err};
+    return RegisterComponent.adaptErrors(this.form.controls.password, {required: 'Password is required'});
   }
 
   get confirmPasswordErrors() {
-    const err = this.submitted && this.form.hasError('notSame');
-    return {hasErrors: err};
+    const control = this.form.controls.confirmPassword;
+    return this.form.hasError('notMatch') && (control.dirty || control.touched) ?
+      ['Passwords do not match'] : null;
   }
 
   onSubmit(): void {
-    this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    }
-    this.btnDisabled = true;
-    this.submitFailed = false;
     this.api.postNewUser(this.form.value).subscribe(
       res => {
-        this.toast.success('You are welcome, ' + res.firstName + ' ' + res.lastName);
-        this.form.setValue({firstName: '', lastName: '', email: '', password: '', confirmPassword: ''});
-        this.submitted = false;
-        this.btnDisabled = false;
         this.submitFailed = false;
+        this.toast.success(`You are welcome, ${res.firstName}!`);
+        this.form.reset();
       },
       err => {
+        this.submitFailed = true;
         if (err.error.message) {
           this.toast.error(err.error.message);
         } else {
           this.toast.error('Failed to sign up');
         }
-        this.btnDisabled = false;
-        this.submitFailed = true;
       }
     );
   }

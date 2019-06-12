@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card">
-      <div class="card-header">New to MyNotes? Sign up!</div>
+      <h5 class="card-header text-center">Join MyNotes!</h5>
       <div class="card-body">
         <!--form-->
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -11,11 +11,9 @@
             <input id="fnInput" type="text" class="form-control"
                    placeholder="First Name"
                    formControlName="firstName"
-                   [ngClass]="{ 'is-invalid': firstNameErrors.hasErrors }"
+                   [ngClass]="{'is-invalid': firstNameErrors}"
             />
-            <div *ngIf="firstNameErrors.hasErrors" class="invalid-feedback">
-              <div *ngIf="firstNameErrors.errors.required">First Name is required</div>
-            </div>
+            <div *ngFor="let error of firstNameErrors" class="invalid-feedback">{{error}}</div>
           </div>
           <!--last name-->
           <div class="form-group">
@@ -31,37 +29,32 @@
             <input id="emailInput" type="email" class="form-control"
                    placeholder="Email address"
                    formControlName="email"
-                   [ngClass]="{ 'is-invalid': emailErrors.hasErrors }"
+                   [ngClass]="{'is-invalid': emailErrors}"
             />
-            <div *ngIf="emailErrors.hasErrors" class="invalid-feedback">
-              <div *ngIf="emailErrors.errors.required">Email is required</div>
-              <div *ngIf="emailErrors.errors.email">Email must be a valid email address</div>
-            </div>
+            <div *ngFor="let error of emailErrors" class="invalid-feedback">{{error}}</div>
           </div>
           <!--password-->
           <div class="form-group">
             <label for="passInput">Password</label>
             <input id="passInput" type="password" class="form-control"
                    formControlName="password"
-                   [ngClass]="{ 'is-invalid': passwordErrors.hasErrors }"
+                   [ngClass]="{'is-invalid': passwordErrors}"
             />
-            <div *ngIf="passwordErrors.hasErrors" class="invalid-feedback">
-              <div *ngIf="passwordErrors.errors.required">Password is required</div>
-            </div>
+            <div *ngFor="let error of passwordErrors" class="invalid-feedback">{{error}}</div>
           </div>
           <!--confirm password-->
           <div class="form-group">
             <label for="cnfPassInput">Confirm password</label>
             <input id="cnfPassInput" type="password" class="form-control"
                    formControlName="confirmPassword"
-                   [ngClass]="{ 'is-invalid': confirmPasswordErrors.hasErrors }"
+                   [ngClass]="{ 'is-invalid': confirmPasswordErrors }"
             />
-            <div *ngIf="confirmPasswordErrors.hasErrors" class="invalid-feedback">Passwords do not match</div>
+            <div *ngFor="let error of confirmPasswordErrors" class="invalid-feedback">{{error}}</div>
           </div>
           <!--button-->
           <div class="form-group">
             <div class="text-right">
-              <button type="submit" class="btn btn-primary" [disabled]="btnDisabled">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
                 <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
                 <span> Sign up</span>
               </button>

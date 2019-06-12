@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-feedback',
@@ -9,9 +9,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./feedback.component.scss']
 })
 export class FeedbackComponent implements OnInit {
-  from: FormGroup;
-  submitted = false;
-  btnDisabled = false;
+  form: FormGroup;
   submitFailed = false;
 
   constructor(private formBuilder: FormBuilder,
@@ -19,8 +17,13 @@ export class FeedbackComponent implements OnInit {
               private toast: ToastrService) {
   }
 
+  static adaptErrors(control: AbstractControl, errDesc) {
+    return control.invalid && (control.dirty || control.touched) ?
+      [...Object.getOwnPropertyNames(control.errors)].map(x => errDesc[x]) : null;
+  }
+
   ngOnInit() {
-    this.from = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       senderName: ['', Validators.required],
       senderEmail: ['', [Validators.required, Validators.email]],
       feedbackText: ['', Validators.required]
@@ -28,43 +31,32 @@ export class FeedbackComponent implements OnInit {
   }
 
   get nameErrors() {
-    const err = this.from.controls.senderName.errors;
-    return {hasErrors: this.submitted && err !== null, errors: err};
+    return FeedbackComponent.adaptErrors(this.form.controls.senderName, {required: 'Name is required'});
   }
 
   get emailErrors() {
-    const err = this.from.controls.senderEmail.errors;
-    return {hasErrors: this.submitted && err !== null, errors: err};
+    return FeedbackComponent.adaptErrors(this.form.controls.senderEmail,
+      {required: 'Email is required', email: 'Email must be a valid email address'});
   }
 
   get feedbackErrors() {
-    const err = this.from.controls.feedbackText.errors;
-    return {hasErrors: this.submitted && err !== null, errors: err};
+    return FeedbackComponent.adaptErrors(this.form.controls.feedbackText, {required: 'Feedback is required'});
   }
 
   onSubmit(): void {
-    this.submitted = true;
-    if (this.from.invalid) {
-      return;
-    }
-    this.btnDisabled = true;
-    this.submitFailed = false;
-    this.api.postFeedback(this.from.value).subscribe(
+    this.api.postFeedback(this.form.value).subscribe(
       res => {
-        this.toast.success(res.message);
-        this.from.setValue({senderName: '', senderEmail: '', feedbackText: ''});
-        this.submitted = false;
-        this.btnDisabled = false;
         this.submitFailed = false;
+        this.toast.success(res.message);
+        this.form.reset();
       },
       err => {
+        this.submitFailed = true;
         if (err.error.message) {
           this.toast.error(err.error.message);
         } else {
           this.toast.error('Failed to send feedback');
         }
-        this.btnDisabled = false;
-        this.submitFailed = true;
       }
     );
   }

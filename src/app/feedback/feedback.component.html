@@ -1,21 +1,19 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card">
-      <div class="card-header">Send feedback</div>
+      <h5 class="card-header text-center">Send feedback</h5>
       <div class="card-body">
         <!--form-->
-        <form [formGroup]="from" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <!--name-->
           <div class="form-group">
             <label for="nameInput">Name</label>
             <input id="nameInput" type="text" class="form-control"
                    placeholder="Your name"
                    formControlName="senderName"
-                   [ngClass]="{ 'is-invalid': nameErrors.hasErrors }"
+                   [ngClass]="{'is-invalid': nameErrors}"
             />
-            <div *ngIf="nameErrors.hasErrors" class="invalid-feedback">
-              <div *ngIf="nameErrors.errors.required">Name is required</div>
-            </div>
+            <div *ngFor="let error of nameErrors" class="invalid-feedback">{{error}}</div>
           </div>
           <!--email-->
           <div class="form-group">
@@ -23,12 +21,9 @@
             <input id="emailInput" type="email" class="form-control"
                    placeholder="Your email"
                    formControlName="senderEmail"
-                   [ngClass]="{ 'is-invalid': emailErrors.hasErrors }"
+                   [ngClass]="{'is-invalid': emailErrors}"
             />
-            <div *ngIf="emailErrors.hasErrors" class="invalid-feedback">
-              <div *ngIf="emailErrors.errors.required">Email is required</div>
-              <div *ngIf="emailErrors.errors.email">Email must be a valid email address</div>
-            </div>
+            <div *ngFor="let error of emailErrors" class="invalid-feedback">{{error}}</div>
           </div>
           <!--feedback-->
           <div class="form-group">
@@ -36,16 +31,14 @@
             <textarea id="feedbackInput" rows="3" class="form-control"
                       placeholder="Your feedback"
                       formControlName="feedbackText"
-                      [ngClass]="{ 'is-invalid': feedbackErrors.hasErrors }"
+                      [ngClass]="{'is-invalid': feedbackErrors}"
             ></textarea>
-            <div *ngIf="feedbackErrors.hasErrors" class="invalid-feedback">
-              <div *ngIf="feedbackErrors.errors.required">Feedback is required</div>
-            </div>
+            <div *ngFor="let error of feedbackErrors" class="invalid-feedback">{{error}}</div>
           </div>
           <!--button-->
           <div class="form-group">
             <div class="text-right">
-              <button type="submit" class="btn btn-primary" [disabled]="btnDisabled">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
                 <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
                 <span> Send feedback</span>
               </button>
