@@ -43,7 +43,7 @@
                 <span> Send feedback</span>
               </button>
             </div>
-            <div *ngIf="this.submitFailed" class="invalid-feedback d-block">Failed to send feedback</div>
+            <div *ngIf="formErrorMessage" class="invalid-feedback d-block">{{formErrorMessage}}</div>
           </div>
         </form>
       </div>

@@ -10,7 +10,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
-  submitFailed = false;
+  formErrorMessage = null;
 
   constructor(private formBuilder: FormBuilder,
               private api: HttpService,
@@ -60,17 +60,13 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     this.api.postNewUser(this.form.value).subscribe(
       res => {
-        this.submitFailed = false;
+        this.formErrorMessage = null;
         this.toast.success(`You are welcome, ${res.firstName}!`);
         this.form.reset();
       },
       err => {
-        this.submitFailed = true;
-        if (err.error.message) {
-          this.toast.error(err.error.message);
-        } else {
-          this.toast.error('Failed to sign up');
-        }
+        this.formErrorMessage = err.error.message ? err.error.message : 'Failed to sign up';
+        this.toast.error(this.formErrorMessage);
       }
     );
   }
