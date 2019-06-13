@@ -1,3 +1,40 @@
-<p>
-  login works!
-</p>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <h5 class="card-header text-center">Sign in to MyNotes</h5>
+      <div class="card-body">
+        <!--form-->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <!--email-->
+          <div class="form-group">
+            <label for="emailInput">Email address</label>
+            <input id="emailInput" type="email" class="form-control"
+                   formControlName="email"
+                   [ngClass]="{'is-invalid': emailErrors}"
+            />
+            <div *ngFor="let error of emailErrors" class="invalid-feedback">{{error}}</div>
+          </div>
+          <!--password-->
+          <div class="form-group">
+            <label for="passInput">Password</label>
+            <input id="passInput" type="password" class="form-control"
+                   formControlName="password"
+                   [ngClass]="{'is-invalid': passwordErrors}"
+            />
+            <div *ngFor="let error of passwordErrors" class="invalid-feedback">{{error}}</div>
+          </div>
+          <!--button-->
+          <div class="form-group">
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+                <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
+                <span> Sign up</span>
+              </button>
+            </div>
+            <div *ngIf="formErrorMessage" class="invalid-feedback d-block">{{formErrorMessage}}</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

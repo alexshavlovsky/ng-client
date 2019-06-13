@@ -17,7 +17,7 @@ export class FeedbackComponent implements OnInit {
               private toast: ToastrService) {
   }
 
-  static adaptErrors(control: AbstractControl, errDesc) {
+  adaptErrors(control: AbstractControl, errDesc): string[] | null {
     return control.invalid && (control.dirty || control.touched) ?
       [...Object.getOwnPropertyNames(control.errors)].map(x => errDesc[x]) : null;
   }
@@ -31,16 +31,16 @@ export class FeedbackComponent implements OnInit {
   }
 
   get nameErrors() {
-    return FeedbackComponent.adaptErrors(this.form.controls.senderName, {required: 'Name is required'});
+    return this.adaptErrors(this.form.controls.senderName, {required: 'Name is required'});
   }
 
   get emailErrors() {
-    return FeedbackComponent.adaptErrors(this.form.controls.senderEmail,
+    return this.adaptErrors(this.form.controls.senderEmail,
       {required: 'Email is required', email: 'Email must be a valid email address'});
   }
 
   get feedbackErrors() {
-    return FeedbackComponent.adaptErrors(this.form.controls.feedbackText, {required: 'Feedback is required'});
+    return this.adaptErrors(this.form.controls.feedbackText, {required: 'Feedback is required'});
   }
 
   onSubmit(): void {
@@ -49,6 +49,10 @@ export class FeedbackComponent implements OnInit {
         this.formErrorMessage = null;
         this.toast.success(res.message);
         this.form.reset();
+        this.form.reset();
+        Object.keys(this.form.controls).forEach(key => {
+          this.form.get(key).setValue('');
+        });
       },
       err => {
         this.formErrorMessage = err.error.message ? err.error.message : 'Failed to sign up';

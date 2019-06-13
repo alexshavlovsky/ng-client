@@ -9,7 +9,6 @@
           <div class="form-group">
             <label for="nameInput">Name</label>
             <input id="nameInput" type="text" class="form-control"
-                   placeholder="Your name"
                    formControlName="senderName"
                    [ngClass]="{'is-invalid': nameErrors}"
             />
@@ -19,7 +18,6 @@
           <div class="form-group">
             <label for="emailInput">Email address</label>
             <input id="emailInput" type="email" class="form-control"
-                   placeholder="Your email"
                    formControlName="senderEmail"
                    [ngClass]="{'is-invalid': emailErrors}"
             />
@@ -29,7 +27,6 @@
           <div class="form-group">
             <label for="feedbackInput">Feedback</label>
             <textarea id="feedbackInput" rows="3" class="form-control"
-                      placeholder="Your feedback"
                       formControlName="feedbackText"
                       [ngClass]="{'is-invalid': feedbackErrors}"
             ></textarea>

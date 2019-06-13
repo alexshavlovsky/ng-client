@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     return pass === confirmPass ? null : {notMatch: true};
   }
 
-  static adaptErrors(control: AbstractControl, errDesc) {
+  adaptErrors(control: AbstractControl, errDesc): string[] | null {
     return control.invalid && (control.dirty || control.touched) ?
       [...Object.getOwnPropertyNames(control.errors)].map(x => errDesc[x]) : null;
   }
@@ -33,22 +33,28 @@ export class RegisterComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: [''],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['']
     }, {validator: RegisterComponent.checkPasswords});
   }
 
   get firstNameErrors() {
-    return RegisterComponent.adaptErrors(this.form.controls.firstName, {required: 'First Name is required'});
+    return this.adaptErrors(this.form.controls.firstName, {required: 'First Name is required'});
   }
 
   get emailErrors() {
-    return RegisterComponent.adaptErrors(this.form.controls.email,
-      {required: 'Email is required', email: 'Email must be a valid email address'});
+    return this.adaptErrors(this.form.controls.email,
+      {
+        required: 'Email is required',
+        email: 'Email must be a valid email address'
+      });
   }
 
   get passwordErrors() {
-    return RegisterComponent.adaptErrors(this.form.controls.password, {required: 'Password is required'});
+    return this.adaptErrors(this.form.controls.password, {
+      required: 'Password is required',
+      minlength: 'Password must be at least 5 characters long'
+    });
   }
 
   get confirmPasswordErrors() {
@@ -63,6 +69,9 @@ export class RegisterComponent implements OnInit {
         this.formErrorMessage = null;
         this.toast.success(`You are welcome, ${res.firstName}!`);
         this.form.reset();
+        Object.keys(this.form.controls).forEach(key => {
+          this.form.get(key).setValue('') ;
+        });
       },
       err => {
         this.formErrorMessage = err.error.message ? err.error.message : 'Failed to sign up';

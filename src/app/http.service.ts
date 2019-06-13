@@ -4,6 +4,7 @@ import {FeedbackModel} from './model/feedback.model';
 import {Observable} from 'rxjs';
 import {APP_CONFIG, IAppConfig} from './app.config';
 import {UserModel} from './model/user.model';
+import {LoginModel} from './model/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,12 @@ export class HttpService {
   API_NOTEBOOKS_PATH = `${this.API_BASE_PATH}notebooks/`;
   API_NOTES_PATH = `${this.API_BASE_PATH}notes/`;
   API_USERS_PATH = `${this.API_BASE_PATH}users/`;
+  API_LOGIN_PATH = `${this.API_BASE_PATH}login/`;
   API_COMMAND_PATH = `${this.API_BASE_PATH}command/`;
   httpOptions = {
     headers: new HttpHeaders({
       Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: 'Basic ' + btoa(this.config.apiAuth)
+      'Content-Type': 'application/json'
     })
   };
 
@@ -32,6 +33,10 @@ export class HttpService {
 
   postNewUser(formData: any): Observable<any> {
     return this.http.post(this.API_USERS_PATH, new UserModel(formData), this.httpOptions);
+  }
+
+  postLogin(formData: any): Observable<any> {
+    return this.http.post(this.API_LOGIN_PATH, new LoginModel(formData), this.httpOptions);
   }
 
   postCommand(command: string): Observable<any> {
