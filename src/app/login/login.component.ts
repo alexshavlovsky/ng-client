@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private api: HttpService,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private router: Router,
+              private auth: AuthService) {
   }
 
   adaptErrors(control: AbstractControl, errDesc): string[] | null {
@@ -50,11 +54,12 @@ export class LoginComponent implements OnInit {
         if (res.token) {
           this.formErrorMessage = null;
           this.toast.success(`Success`);
-          localStorage.setItem('token', res.token);
+          this.auth.logIn(res.token);
           this.form.reset();
           Object.keys(this.form.controls).forEach(key => {
             this.form.get(key).setValue('');
           });
+          this.router.navigate(['/']);
         }
       },
       err => {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +11,8 @@ import {ToastrService} from 'ngx-toastr';
 export class NavBarComponent implements OnInit {
 
   constructor(private http: HttpService,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -35,6 +37,13 @@ export class NavBarComponent implements OnInit {
       },
       err => this.toast.error('Failed to fill database')
     );
+  }
+
+  logOut() {
+    if (this.auth.loggedIn) {
+      this.auth.logOut();
+      location.reload();
+    }
   }
 
 }

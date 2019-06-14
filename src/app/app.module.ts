@@ -6,6 +6,8 @@ import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {FeedbackComponent} from './feedback/feedback.component';
 import {NotesComponent} from './notes/notes.component';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
 // Font Awesome
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
@@ -26,17 +28,16 @@ import {ToastrModule} from 'ngx-toastr';
 // Modules
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {APP_CONFIG, AppConfig} from './app.config';
 import {AutosizeModule} from 'ngx-autosize';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
-
+import {AuthGuard} from './auth.guard';
+import {AuthInterceptor} from './auth.interceptor';
 
 const appRoutes: Routes = [
-  {path: 'notes', component: NotesComponent},
-  {path: 'feedback', component: FeedbackComponent},
+  {path: 'notes', component: NotesComponent, canActivate: [AuthGuard]},
+  {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {
@@ -66,9 +67,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     AutosizeModule,
-    ToastrModule.forRoot({newestOnTop: false})
+    ToastrModule.forRoot({newestOnTop: false, positionClass: 'toast-bottom-right'})
   ],
-  providers: [{provide: APP_CONFIG, useValue: AppConfig}],
+  providers: [{provide: APP_CONFIG, useValue: AppConfig},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
