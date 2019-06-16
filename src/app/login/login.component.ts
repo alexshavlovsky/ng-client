@@ -4,6 +4,7 @@ import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
+import {UserResponse} from '../model/user-response';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import {AuthService} from '../auth/auth.service';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   formErrorMessage = null;
+  formSubmission = false;
 
   constructor(private formBuilder: FormBuilder,
               private api: HttpService,
@@ -49,22 +51,25 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.formSubmission = true;
     this.api.postLogin(this.form.value).subscribe(
       res => {
         if (res.token) {
           this.formErrorMessage = null;
-          this.toast.success(`Success sign in`);
-          this.auth.logIn(res.token);
+          this.toast.success(`You are welcome, ${res.user.firstName}!`);
+          this.auth.logIn(res.token, new UserResponse(res.user));
           this.form.reset();
           Object.keys(this.form.controls).forEach(key => {
             this.form.get(key).setValue('');
           });
+          this.formSubmission = false;
           this.router.navigate(['/']);
         }
       },
       err => {
         this.formErrorMessage = err.error.message ? err.error.message : 'Failed to sign in';
         this.toast.error(this.formErrorMessage);
+        this.formSubmission = false;
       }
     );
   }
