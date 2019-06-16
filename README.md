@@ -19,3 +19,5 @@ Pop-up notifications | [ngx-toastr](https://github.com/scttcper/ngx-toastr)
 Forms                | Angular Reactive Forms
 Pagination           | [ngx-pagination](https://github.com/michaelbromley/ngx-pagination)
 Textarea autosize    | [ngx-autosize](https://chrum.it/pages/ngx-autosize/)
+Authorization        | JWT
+JWT parser           | [@auth0/angular-jwt](https://github.com/auth0/angular2-jwt)
