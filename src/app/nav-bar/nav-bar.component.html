@@ -10,13 +10,13 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [routerLinkActive]="'active'">
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="this.auth.logged">
         <a class="nav-link" [routerLink]="'/notes'">Notes</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="'active'">
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="this.auth.logged">
         <a class="nav-link" [routerLink]="'/feedback'">Feedback</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="this.auth.hasRole(this.adminRole)">
         <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           Admin tools
@@ -32,17 +32,22 @@
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
-      <li class="nav-item" [routerLinkActive]="'active'">
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="!this.auth.logged">
         <a class="nav-link" [routerLink]="'/register'">
           <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
           Sign up</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="'active'">
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="!this.auth.logged">
         <a class="nav-link" [routerLink]="'/login'">
           <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
           Sign in</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="this.auth.logged&&auth.principal.user">
+        <p class="navbar-text">
+          <fa-icon [icon]="['fas', 'user']"></fa-icon>
+          {{auth.principal.user?.email}}</p>
+      </li>
+      <li class="nav-item" *ngIf="this.auth.logged">
         <a class="nav-link" href="javascript:void(0)" (click)="logOut()">
           <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
           Sign out</a>
