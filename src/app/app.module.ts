@@ -32,8 +32,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {APP_CONFIG, AppConfig} from './app.config';
 import {AutosizeModule} from 'ngx-autosize';
-import {AuthGuard} from './auth.guard';
-import {AuthInterceptor} from './auth.interceptor';
+import {AuthGuard} from './auth/auth.guard';
+import {AuthInterceptor} from './auth/auth.interceptor';
 
 const appRoutes: Routes = [
   {path: 'notes', component: NotesComponent, canActivate: [AuthGuard]},

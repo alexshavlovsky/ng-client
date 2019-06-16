@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,7 +13,8 @@ export class NavBarComponent implements OnInit {
 
   constructor(private http: HttpService,
               private toast: ToastrService,
-              private auth: AuthService) {
+              private auth: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -40,9 +42,9 @@ export class NavBarComponent implements OnInit {
   }
 
   logOut() {
-    if (this.auth.loggedIn) {
+    if (this.auth.logged) {
       this.auth.logOut();
-      location.reload();
+      this.router.navigate(['/login']);
     }
   }
 
