@@ -3,7 +3,6 @@ import {HttpService} from '../http.service';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../auth/auth.service';
 import {Router} from '@angular/router';
-import {AuthRole} from '../auth/auth-role.enum';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,8 +10,6 @@ import {AuthRole} from '../auth/auth-role.enum';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-
-  adminRole = AuthRole.ADMIN;
 
   constructor(private http: HttpService,
               private toast: ToastrService,
@@ -40,7 +37,7 @@ export class NavBarComponent implements OnInit {
         this.toast.success(res.message);
         location.reload();
       },
-      err => this.toast.error('Failed to fill database')
+      () => this.toast.error('Failed to fill database')
     );
   }
 

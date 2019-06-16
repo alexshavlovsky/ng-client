@@ -81,6 +81,15 @@ export class AuthService {
   public hasRole(role: AuthRole): boolean {
     /* tslint:disable:no-bitwise */
     return this.logged ? ((role & this.principal.roles) !== 0) : false;
+    /* tslint:enable:no-bitwise */
+  }
+
+  get displayName(): string {
+    return this.logged && this.user ? this.user.firstName + ' ' + this.user.lastName : null;
+  }
+
+  get hasAdminRole(): boolean {
+    return this.hasRole(AuthRole.ADMIN);
   }
 
 }
