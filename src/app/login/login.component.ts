@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       res => {
         if (res.token) {
           this.formErrorMessage = null;
-          this.toast.success(`Success`);
+          this.toast.success(`Success sign in`);
           this.auth.logIn(res.token);
           this.form.reset();
           Object.keys(this.form.controls).forEach(key => {

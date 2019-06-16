@@ -35,6 +35,10 @@ export class HttpService {
     return this.http.post(this.API_USERS_PATH, new UserModel(formData), this.httpOptions);
   }
 
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any[]>(this.API_USERS_PATH, this.httpOptions);
+  }
+
   postLogin(formData: any): Observable<any> {
     return this.http.post(this.API_LOGIN_PATH, new LoginModel(formData), this.httpOptions);
   }
