@@ -51,7 +51,7 @@
           <!--button-->
           <div class="form-group">
             <div class="text-right">
-              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid||formSubmission">
                 <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
                 <span> Sign up</span>
               </button>

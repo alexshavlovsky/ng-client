@@ -11,6 +11,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 export class FeedbackComponent implements OnInit {
   form: FormGroup;
   formErrorMessage = null;
+  formSubmission = false;
 
   constructor(private formBuilder: FormBuilder,
               private api: HttpService,
@@ -44,6 +45,7 @@ export class FeedbackComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.formSubmission = true;
     this.api.postFeedback(this.form.value).subscribe(
       res => {
         this.formErrorMessage = null;
@@ -53,10 +55,12 @@ export class FeedbackComponent implements OnInit {
         Object.keys(this.form.controls).forEach(key => {
           this.form.get(key).setValue('');
         });
+        this.formSubmission = false;
       },
       err => {
         this.formErrorMessage = err.error.message ? err.error.message : 'Failed to sign up';
         this.toast.error(this.formErrorMessage);
+        this.formSubmission = false;
       }
     );
   }
