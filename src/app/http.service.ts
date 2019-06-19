@@ -36,7 +36,7 @@ export class HttpService {
   }
 
   getCurrentUser(): Observable<any> {
-    return this.http.get<any[]>(this.API_USERS_PATH, this.httpOptions);
+    return this.http.get<any[]>(this.API_USERS_PATH + 'current', this.httpOptions);
   }
 
   postLogin(formData: any): Observable<any> {
