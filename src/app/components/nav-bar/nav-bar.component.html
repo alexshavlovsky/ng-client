@@ -10,25 +10,17 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="auth.logged">
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="auth.hasUserRole">
         <a class="nav-link" [routerLink]="'/notes'">Notes</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="auth.logged">
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="auth.hasUserRole">
         <a class="nav-link" [routerLink]="'/feedback'">Feedback</a>
       </li>
-      <li class="nav-item dropdown" *ngIf="auth.hasAdminRole">
-        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          Admin tools
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <button class="dropdown-item" type="button" (click)="sendCommandFillDb()"><span
-            class="badge badge-pill badge-warning">!</span> Fill database
-          </button>
-          <button class="dropdown-item" type="button" (click)="sendCommandShutdown()"><span
-            class="badge badge-pill badge-danger">!</span> Shutdown backend
-          </button>
-        </div>
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="auth.hasAdminRole">
+        <a class="nav-link" [routerLink]="'/users'">Users</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="'active'" *ngIf="auth.hasAdminRole">
+        <a class="nav-link" [routerLink]="'/commands'">Commands</a>
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">

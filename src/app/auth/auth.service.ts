@@ -92,4 +92,8 @@ export class AuthService {
     return this.hasRole(AuthRole.ADMIN);
   }
 
+  get hasUserRole(): boolean {
+    return this.hasRole(AuthRole.USER);
+  }
+
 }

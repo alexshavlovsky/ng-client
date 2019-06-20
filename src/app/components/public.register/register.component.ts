@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpService} from '../http.service';
+import {HttpService} from '../../http.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({

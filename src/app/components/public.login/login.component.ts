@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpService} from '../http.service';
+import {HttpService} from '../../http.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {AuthService} from '../auth/auth.service';
-import {UserResponse} from '../model/user-response';
+import {AuthService} from '../../auth/auth.service';
+import {UserResponse} from '../../model/user-response';
 
 @Component({
   selector: 'app-login',

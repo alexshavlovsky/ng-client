@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {NotebookModel} from '../model/notebook.model';
-import {HttpService} from '../http.service';
+import {NotebookModel} from '../../model/notebook.model';
+import {HttpService} from '../../http.service';
 import {ToastrService} from 'ngx-toastr';
-import {NoteModel} from '../model/note.model';
+import {NoteModel} from '../../model/note.model';
 
 @Component({
   selector: 'app-notes',
