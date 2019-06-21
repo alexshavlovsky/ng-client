@@ -35,7 +35,21 @@ import {AutosizeModule} from 'ngx-autosize';
 
 import {APP_CONFIG, AppConfig} from './app.config';
 import {AuthInterceptor} from './auth/auth.interceptor';
-import {routing} from './app.routing';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from './auth/auth.guard';
+import {AuthRole} from './auth/auth-role.enum';
+import {RouteUrls} from './app.route-urls';
+import {AuthRedirectGuard} from './auth/auth.redirect.guard';
+
+const appRoutes: Routes = [
+  {path: RouteUrls.REGISTER, component: RegisterComponent, canActivate: [AuthRedirectGuard]},
+  {path: RouteUrls.LOGIN, component: LoginComponent, canActivate: [AuthRedirectGuard]},
+  {path: RouteUrls.NOTES, component: NotesComponent, canActivate: [AuthGuard], data: {role: AuthRole.USER}},
+  {path: RouteUrls.FEEDBACK, component: FeedbackComponent, canActivate: [AuthGuard], data: {role: AuthRole.USER}},
+  {path: RouteUrls.USERS, component: UsersComponent, canActivate: [AuthGuard], data: {role: AuthRole.ADMIN}},
+  {path: RouteUrls.COMMANDS, component: CommandsComponent, canActivate: [AuthGuard], data: {role: AuthRole.ADMIN}},
+  {path: '**', component: NotFoundComponent, canActivate: [AuthGuard]}
+];
 
 @NgModule({
   declarations: [
@@ -50,7 +64,7 @@ import {routing} from './app.routing';
     CommandsComponent
   ],
   imports: [
-    routing,
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     NgxPaginationModule,
     ReactiveFormsModule, FormsModule,

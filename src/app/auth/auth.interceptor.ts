@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {RouteUrls} from '../app.route-urls';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -20,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
       (err: any) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401 || err.status === 403) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/' + RouteUrls.LOGIN]);
           }
         }
       }));

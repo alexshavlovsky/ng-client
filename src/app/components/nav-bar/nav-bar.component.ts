@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
+import {RouteUrls} from '../../app.route-urls';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,7 +20,7 @@ export class NavBarComponent implements OnInit {
   logOut() {
     if (this.auth.logged) {
       this.auth.logOut();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/' + RouteUrls.LOGIN]);
     }
   }
 
