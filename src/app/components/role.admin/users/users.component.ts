@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpService} from '../../http.service';
+import {HttpService} from '../../../http.service';
 import {ToastrService} from 'ngx-toastr';
-import {UserResponse} from '../../model/user-response';
+import {UserResponse} from '../../../model/user-response';
 
 @Component({
   selector: 'app-users',

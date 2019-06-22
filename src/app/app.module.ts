@@ -3,13 +3,13 @@ import {NgModule} from '@angular/core';
 // Components
 import {AppComponent} from './app.component';
 import {NavBarComponent} from './components/nav-bar/nav-bar.component';
-import {FeedbackComponent} from './components/user.feedback/feedback.component';
-import {NotesComponent} from './components/user.notes/notes.component';
-import {NotFoundComponent} from './components/public.not-found/not-found.component';
-import {LoginComponent} from './components/public.login/login.component';
-import {RegisterComponent} from './components/public.register/register.component';
-import {UsersComponent} from './components/admin.users/users.component';
-import {CommandsComponent} from './components/admin.commands/commands.component';
+import {FeedbackComponent} from './components/role.user/feedback/feedback.component';
+import {NotesComponent} from './components/role.user/notes/notes.component';
+import {ErrorComponent} from './components/error/error.component';
+import {LoginComponent} from './components/login/login.component';
+import {RegisterComponent} from './components/register/register.component';
+import {UsersComponent} from './components/role.admin/users/users.component';
+import {CommandsComponent} from './components/role.admin/commands/commands.component';
 // Font Awesome
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
@@ -32,14 +32,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {AutosizeModule} from 'ngx-autosize';
-
+import {RouterModule, Routes} from '@angular/router';
+import {RouteUrls} from './app.route-urls';
+// Services
 import {APP_CONFIG, AppConfig} from './app.config';
 import {AuthInterceptor} from './auth/auth.interceptor';
-import {RouterModule, Routes} from '@angular/router';
+import {AuthRedirectGuard} from './auth/auth.redirect.guard';
 import {AuthGuard} from './auth/auth.guard';
 import {AuthRole} from './auth/auth-role.enum';
-import {RouteUrls} from './app.route-urls';
-import {AuthRedirectGuard} from './auth/auth.redirect.guard';
 
 const appRoutes: Routes = [
   {path: RouteUrls.REGISTER, component: RegisterComponent, canActivate: [AuthRedirectGuard]},
@@ -48,7 +48,7 @@ const appRoutes: Routes = [
   {path: RouteUrls.FEEDBACK, component: FeedbackComponent, canActivate: [AuthGuard], data: {role: AuthRole.USER}},
   {path: RouteUrls.USERS, component: UsersComponent, canActivate: [AuthGuard], data: {role: AuthRole.ADMIN}},
   {path: RouteUrls.COMMANDS, component: CommandsComponent, canActivate: [AuthGuard], data: {role: AuthRole.ADMIN}},
-  {path: '**', component: NotFoundComponent, canActivate: [AuthGuard]}
+  {path: '**', component: ErrorComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -57,7 +57,7 @@ const appRoutes: Routes = [
     NavBarComponent,
     FeedbackComponent,
     NotesComponent,
-    NotFoundComponent,
+    ErrorComponent,
     RegisterComponent,
     LoginComponent,
     UsersComponent,
