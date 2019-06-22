@@ -9,6 +9,6 @@ export class RouteUrls {
   public static COMMANDS = 'commands';
   public static DEFAULT_BY_ROLE = [
     {role: AuthRole.USER, route: RouteUrls.NOTES},
-    {role: AuthRole.ADMIN, route: RouteUrls.COMMANDS}
+    {role: AuthRole.ADMIN, route: RouteUrls.USERS}
   ];
 }
