@@ -72,10 +72,6 @@ export class HttpService {
     return this.http.delete(`${this.API_NOTES_PATH}${nbId}`, this.httpOptions);
   }
 
-  getAllNotes(): Observable<any[]> {
-    return this.http.get<any[]>(this.API_NOTES_PATH, this.httpOptions);
-  }
-
   createNote(title: string, text: string, notebookId: number): Observable<any> {
     return this.http.post(this.API_NOTES_PATH, {title, text, notebookId}, this.httpOptions);
   }

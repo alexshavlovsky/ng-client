@@ -64,19 +64,6 @@ export class NotesComponent implements OnInit {
     );
   }
 
-  getAllNotes() {
-    this.http.getAllNotes().subscribe(
-      res => {
-        this.notes = res.map(dto => new NoteModel(dto));
-        this.notesFetchFailed = false;
-      },
-      err => {
-        this.toast.error('Failed to get notes');
-        this.notesFetchFailed = true;
-      }
-    );
-  }
-
   // View callbacks
 
   selectNb(notebook: NotebookModel) {
