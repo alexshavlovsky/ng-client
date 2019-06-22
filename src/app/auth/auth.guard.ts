@@ -12,6 +12,7 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {
   }
 
+  // frontend authorisation scheme assumes one role per component and multiple roles per user
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -25,7 +26,10 @@ export class AuthGuard implements CanActivate {
     }
     // redirect to default route by role
     const route = RouteUrls.DEFAULT_BY_ROLE.find(r => this.auth.hasRole(r.role)).route;
-    return route === undefined ? false : this.router.createUrlTree(['/' + route]);
+    return route === undefined ?
+      this.router.createUrlTree(['/'])
+      :
+      this.router.createUrlTree(['/' + route]);
   }
 
 }

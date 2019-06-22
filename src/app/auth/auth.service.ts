@@ -78,6 +78,7 @@ export class AuthService {
     this.removeToken();
   }
 
+  // extract corresponding bit from the integer number with contains packed user roles
   public hasRole(role: AuthRole): boolean {
     /* tslint:disable:no-bitwise */
     return this.logged ? ((role & this.principal.roles) !== 0) : false;
