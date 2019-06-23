@@ -12,7 +12,7 @@ Backend service for this project: [MyNotes SpringBoot Service](https://github.co
 Component            | Technology
 ---                  | ---
 Package manager      | NPM
-JS framework         | Angular 7
+JS framework         | Angular 8
 Styles and templates | Bootstrap 4
 Icons                | [angular-fontawesome](https://github.com/FortAwesome/angular-fontawesome)
 Pop-up notifications | [ngx-toastr](https://github.com/scttcper/ngx-toastr)
