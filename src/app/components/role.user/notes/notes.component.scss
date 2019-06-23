@@ -41,19 +41,21 @@ div.modal-body > input {
   width: 100%;
 }
 
-/deep/ ul.ngx-pagination {
-  padding-left: 0;
+// /deep/ is deprecated
 
-  li {
-    &.current {
-      padding-left: 8px;
-      padding-right: 8px;
-    }
-
-    a {
-      padding-left: 8px;
-      padding-right: 8px;
-    }
-  }
-
-}
+///deep/ ul.ngx-pagination {
+//  padding-left: 0;
+//
+//  li {
+//    &.current {
+//      padding-left: 8px;
+//      padding-right: 8px;
+//    }
+//
+//    a {
+//      padding-left: 8px;
+//      padding-right: 8px;
+//    }
+//  }
+//
+//}
