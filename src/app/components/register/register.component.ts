@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
     this.api.postNewUser(this.form.value).subscribe(
       res => {
         this.formErrorMessage = null;
-        this.toast.success(`You are welcome, ${res.firstName}!`);
+        this.toast.success(`Your account is created, ${res.firstName}!`);
         this.form.reset();
         Object.keys(this.form.controls).forEach(key => {
           this.form.get(key).setValue('');

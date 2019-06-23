@@ -3,18 +3,20 @@
   <tr>
     <th scope="col">#</th>
     <th scope="col">Public Id</th>
+    <th scope="col">Email</th>
     <th scope="col">First Name</th>
     <th scope="col">Last Name</th>
-    <th scope="col">Email</th>
+    <th scope="col">Roles</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let user of users; index as i">
     <th scope="row">{{i + 1}}</th>
     <td>{{user.userId}}</td>
+    <td>{{user.email}}</td>
     <td>{{user.firstName}}</td>
     <td>{{user.lastName}}</td>
-    <td>{{user.email}}</td>
+    <td>{{rolesToString(user.roles)}}</td>
   </tr>
   </tbody>
 </table>

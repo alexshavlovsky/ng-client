@@ -27,32 +27,36 @@ export class HttpService {
   constructor(private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
   }
 
+  postCommand(command: string): Observable<any> {
+    return this.http.post(this.API_COMMAND_PATH, {command}, this.httpOptions);
+  }
+
   postFeedback(formData: any): Observable<any> {
     return this.http.post(this.API_FEEDBACK_PATH, new FeedbackModel(formData), this.httpOptions);
-  }
-
-  postNewUser(formData: any): Observable<any> {
-    return this.http.post(this.API_USERS_PATH, new UserModel(formData), this.httpOptions);
-  }
-
-  getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.API_USERS_PATH, this.httpOptions);
-  }
-
-  getCurrentUser(): Observable<any> {
-    return this.http.get<any>(this.API_USERS_PATH + 'current', this.httpOptions);
   }
 
   postLogin(formData: any): Observable<any> {
     return this.http.post(this.API_LOGIN_PATH, new LoginModel(formData), this.httpOptions);
   }
 
-  postCommand(command: string): Observable<any> {
-    return this.http.post(this.API_COMMAND_PATH, {command}, this.httpOptions);
+  postNewUser(formData: any): Observable<any> {
+    return this.http.post(this.API_USERS_PATH, new UserModel(formData), this.httpOptions);
+  }
+
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any>(this.API_USERS_PATH + 'current', this.httpOptions);
+  }
+
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.API_USERS_PATH, this.httpOptions);
   }
 
   getAllNotebooks(): Observable<any[]> {
     return this.http.get<any[]>(this.API_NOTEBOOKS_PATH, this.httpOptions);
+  }
+
+  getAllNotesByNotebook(nbId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_NOTEBOOKS_PATH}${nbId}/notes`, this.httpOptions);
   }
 
   createNotebook(notebookName: string): Observable<any> {
@@ -68,10 +72,6 @@ export class HttpService {
     return this.http.delete(`${this.API_NOTEBOOKS_PATH}${nbId}`, this.httpOptions);
   }
 
-  deleteNote(nbId: number): Observable<any> {
-    return this.http.delete(`${this.API_NOTES_PATH}${nbId}`, this.httpOptions);
-  }
-
   createNote(title: string, text: string, notebookId: number): Observable<any> {
     return this.http.post(this.API_NOTES_PATH, {title, text, notebookId}, this.httpOptions);
   }
@@ -80,9 +80,8 @@ export class HttpService {
     return this.http.put(`${this.API_NOTES_PATH}${id}`, {title, text, notebookId}, this.httpOptions);
   }
 
-  getAllNotesByNotebook(nbId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.API_NOTEBOOKS_PATH}${nbId}/notes`, this.httpOptions);
+  deleteNote(nbId: number): Observable<any> {
+    return this.http.delete(`${this.API_NOTES_PATH}${nbId}`, this.httpOptions);
   }
-
 
 }
