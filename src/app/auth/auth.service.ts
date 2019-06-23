@@ -4,6 +4,8 @@ import {AuthPrincipal} from './auth-principal';
 import {AuthRole} from './auth-role.enum';
 import {UserResponse} from '../model/user-response';
 import {HttpService} from '../http.service';
+import {RouteUrls} from '../app.route-urls';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +97,14 @@ export class AuthService {
 
   get hasUserRole(): boolean {
     return this.hasRole(AuthRole.USER);
+  }
+
+  getDefaultRouteUrlTree(router: Router) {
+    const route = RouteUrls.DEFAULT_BY_ROLE.find(r => this.hasRole(r.role));
+    return route === undefined ?
+      router.createUrlTree(['/' + RouteUrls.ERROR])
+      :
+      router.createUrlTree(['/' + route.url]);
   }
 
 }

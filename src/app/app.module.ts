@@ -48,6 +48,7 @@ const appRoutes: Routes = [
   {path: RouteUrls.FEEDBACK, component: FeedbackComponent, canActivate: [AuthGuard], data: {role: AuthRole.USER}},
   {path: RouteUrls.USERS, component: UsersComponent, canActivate: [AuthGuard], data: {role: AuthRole.ADMIN}},
   {path: RouteUrls.COMMANDS, component: CommandsComponent, canActivate: [AuthGuard], data: {role: AuthRole.ADMIN}},
+  {path: RouteUrls.ERROR, component: ErrorComponent},
   {path: '**', component: ErrorComponent, canActivate: [AuthGuard]}
 ];
 

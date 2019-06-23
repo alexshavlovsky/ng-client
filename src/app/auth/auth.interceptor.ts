@@ -21,7 +21,11 @@ export class AuthInterceptor implements HttpInterceptor {
       (err: any) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401 || err.status === 403) {
-            this.router.navigate(['/' + RouteUrls.LOGIN]);
+            // TODO: test and possibly refactor this case
+            // Api will return these errors
+            // if there is an inconsistency in frontend and backend endpoint credentials setup
+            // or if access token is broken or expired
+            this.router.navigate(['/' + RouteUrls.ERROR]);
           }
         }
       }));

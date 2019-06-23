@@ -7,8 +7,9 @@ export class RouteUrls {
   public static FEEDBACK = 'feedback';
   public static USERS = 'users';
   public static COMMANDS = 'commands';
+  public static ERROR = 'error';
   public static DEFAULT_BY_ROLE = [
-    {role: AuthRole.USER, route: RouteUrls.NOTES},
-    {role: AuthRole.ADMIN, route: RouteUrls.USERS}
+    {role: AuthRole.USER, url: RouteUrls.NOTES},
+    {role: AuthRole.ADMIN, url: RouteUrls.USERS}
   ];
 }
