@@ -16,6 +16,17 @@ export class LoginComponent implements OnInit {
   formErrorMessage = null;
   formSubmission = false;
 
+  defaultUsers = [
+    {email: 'user@example.com', password: '12345', roles: 'USER'},
+    {email: 'admin@example.com', password: '12345', roles: 'ADMIN'},
+    {email: 'admin2@example.com', password: '12345', roles: 'ADMIN, USER'}
+  ];
+
+  fillCredentialsIntoForm(user) {
+    this.form.controls.email.setValue(user.email);
+    this.form.controls.password.setValue(user.password);
+  }
+
   constructor(private formBuilder: FormBuilder,
               private api: HttpService,
               private toast: ToastrService,

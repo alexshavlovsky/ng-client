@@ -38,3 +38,32 @@
     </div>
   </div>
 </div>
+<!--default users credentials hint-->
+<div class="row justify-content-center mt-4">
+  <div class="col-md-6">
+    <table class="table table-sm table-condensed table-borderless">
+      <tr>Default users:</tr>
+    </table>
+    <table class="table table-sm table-hover table-condensed border-bottom">
+      <thead>
+      <tr>
+        <td>Email</td>
+        <td>Password</td>
+        <td>Roles</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of defaultUsers" (click)="fillCredentialsIntoForm(user)">
+        <td>{{user.email}}</td>
+        <td>{{user.password}}</td>
+        <td>{{user.roles}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-sm table-condensed table-borderless">
+      <tr>Granted authorities by the role:</tr>
+      <tr>ADMIN can view the list of users and execute commands on backend</tr>
+      <tr>USER can create, edit, delete notebooks and notes and send a feedback</tr>
+    </table>
+  </div>
+</div>

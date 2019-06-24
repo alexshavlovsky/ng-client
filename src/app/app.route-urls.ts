@@ -9,7 +9,9 @@ export class RouteUrls {
   public static COMMANDS = 'commands';
   public static ERROR = 'error';
   public static DEFAULT_BY_ROLE = [
-    {role: AuthRole.USER, url: RouteUrls.NOTES},
-    {role: AuthRole.ADMIN, url: RouteUrls.USERS}
+    // if user has multiple roles, default route will be selected
+    // with priority according to the first match in this list
+    {role: AuthRole.ADMIN, url: RouteUrls.USERS},
+    {role: AuthRole.USER, url: RouteUrls.NOTES}
   ];
 }
