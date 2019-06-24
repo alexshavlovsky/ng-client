@@ -107,4 +107,10 @@ export class AuthService {
       router.createUrlTree(['/' + route.url]);
   }
 
+  rolesToString(mask: number): string {
+    /* tslint:disable:no-bitwise */
+    return Object.keys(AuthRole).filter((key) => ((AuthRole[key] & mask) !== 0)).join(', ');
+    /* tslint:enable:no-bitwise */
+  }
+
 }

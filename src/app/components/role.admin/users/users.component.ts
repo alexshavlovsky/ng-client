@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../../../http.service';
 import {ToastrService} from 'ngx-toastr';
 import {UserResponse} from '../../../model/user-response';
-import {AuthRole} from '../../../auth/auth-role.enum';
+import {AuthService} from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -12,16 +12,11 @@ import {AuthRole} from '../../../auth/auth-role.enum';
 export class UsersComponent implements OnInit {
 
   constructor(private http: HttpService,
-              private toast: ToastrService) {
+              private toast: ToastrService,
+              private auth: AuthService) {
   }
 
   users: UserResponse[] = [];
-
-  rolesToString(mask: number): string {
-    /* tslint:disable:no-bitwise */
-    return Object.keys(AuthRole).filter((key) => ((AuthRole[key] & mask) !== 0)).join(', ');
-    /* tslint:enable:no-bitwise */
-  }
 
   ngOnInit() {
     this.getAllUsers();
