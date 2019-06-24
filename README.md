@@ -5,7 +5,10 @@ Basic Angular REST API client.
 Backend service for this project: [MyNotes SpringBoot Service](https://github.com/alexshavlovsky/mynotes-springboot-service).
 
 <p align="center">
-  <img src="screenshots/desktop.png?raw=true"/>
+  <img src="screenshots/2_login.png?raw=true"/>
+</p>
+<p align="center">
+  <img src="screenshots/3_user-notes.png?raw=true"/>
 </p>
 
 ## Technology Stack
