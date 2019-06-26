@@ -10,13 +10,21 @@ import {LoginModel} from './model/login.model';
   providedIn: 'root'
 })
 export class HttpService {
+  API_USERS = 'users';
+  API_CURRENT_USER = 'current';
+  API_LOGIN = 'login';
+  API_COMMAND = 'command';
+  API_FEEDBACK = 'feedback';
+  API_NOTES = 'notes';
+  API_NOTEBOOKS = 'notebooks';
   API_BASE_PATH = this.config.apiEndpoint;
-  API_FEEDBACK_PATH = `${this.API_BASE_PATH}feedback/`;
-  API_NOTEBOOKS_PATH = `${this.API_BASE_PATH}notebooks/`;
-  API_NOTES_PATH = `${this.API_BASE_PATH}notes/`;
-  API_USERS_PATH = `${this.API_BASE_PATH}users/`;
-  API_LOGIN_PATH = `${this.API_BASE_PATH}login/`;
-  API_COMMAND_PATH = `${this.API_BASE_PATH}command/`;
+  API_LOGIN_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_LOGIN]);
+  API_USERS_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_USERS]);
+  API_CURRENT_USER_PATH = HttpService.pathJoin([this.API_USERS_PATH, this.API_CURRENT_USER]);
+  API_COMMAND_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_COMMAND]);
+  API_FEEDBACK_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_FEEDBACK]);
+  API_NOTEBOOKS_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_NOTEBOOKS]);
+  API_NOTES_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_NOTES]);
   httpOptions = {
     headers: new HttpHeaders({
       Accept: 'application/json',
@@ -25,6 +33,10 @@ export class HttpService {
   };
 
   constructor(private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
+  }
+
+  static pathJoin(parts: string[]): string {
+    return parts.join('/').replace(/[/]{2,}/g, '/');
   }
 
   postCommand(command: string): Observable<any> {
@@ -44,7 +56,7 @@ export class HttpService {
   }
 
   getCurrentUser(): Observable<any> {
-    return this.http.get<any>(this.API_USERS_PATH + 'current', this.httpOptions);
+    return this.http.get<any>(this.API_CURRENT_USER_PATH, this.httpOptions);
   }
 
   getAllUsers(): Observable<any[]> {
@@ -55,21 +67,21 @@ export class HttpService {
     return this.http.get<any[]>(this.API_NOTEBOOKS_PATH, this.httpOptions);
   }
 
-  getAllNotesByNotebook(nbId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.API_NOTEBOOKS_PATH}${nbId}/notes`, this.httpOptions);
+  getAllNotesByNotebook(id: number): Observable<any[]> {
+    return this.http.get<any[]>(HttpService.pathJoin([this.API_NOTEBOOKS_PATH, String(id), this.API_NOTES]), this.httpOptions);
   }
 
   createNotebook(notebookName: string): Observable<any> {
     return this.http.post(this.API_NOTEBOOKS_PATH, {name: notebookName}, this.httpOptions);
   }
 
-  updateNotebook(nbId: number, name: string): Observable<any> {
-    return this.http.put(`${this.API_NOTEBOOKS_PATH}${nbId}`,
+  updateNotebook(id: number, name: string): Observable<any> {
+    return this.http.put(HttpService.pathJoin([this.API_NOTEBOOKS_PATH, String(id)]),
       {name}, this.httpOptions);
   }
 
-  deleteNotebook(nbId: number): Observable<any> {
-    return this.http.delete(`${this.API_NOTEBOOKS_PATH}${nbId}`, this.httpOptions);
+  deleteNotebook(id: number): Observable<any> {
+    return this.http.delete(HttpService.pathJoin([this.API_NOTEBOOKS_PATH, String(id)]), this.httpOptions);
   }
 
   createNote(title: string, text: string, notebookId: number): Observable<any> {
@@ -77,11 +89,12 @@ export class HttpService {
   }
 
   updateNote(id: number, title: string, text: string, notebookId: number): Observable<any> {
-    return this.http.put(`${this.API_NOTES_PATH}${id}`, {title, text, notebookId}, this.httpOptions);
+    return this.http.put(HttpService.pathJoin([this.API_NOTES_PATH, String(id)]),
+      {title, text, notebookId}, this.httpOptions);
   }
 
-  deleteNote(nbId: number): Observable<any> {
-    return this.http.delete(`${this.API_NOTES_PATH}${nbId}`, this.httpOptions);
+  deleteNote(id: number): Observable<any> {
+    return this.http.delete(HttpService.pathJoin([this.API_NOTES_PATH, String(id)]), this.httpOptions);
   }
 
 }
