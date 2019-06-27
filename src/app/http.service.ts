@@ -18,8 +18,8 @@ export class HttpService {
   API_NOTES = 'notes';
   API_NOTEBOOKS = 'notebooks';
   API_BASE_PATH = this.config.apiEndpoint;
-  API_LOGIN_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_LOGIN]);
   API_USERS_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_USERS]);
+  API_LOGIN_PATH = HttpService.pathJoin([this.API_USERS_PATH, this.API_LOGIN]);
   API_CURRENT_USER_PATH = HttpService.pathJoin([this.API_USERS_PATH, this.API_CURRENT_USER]);
   API_COMMAND_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_COMMAND]);
   API_FEEDBACK_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_FEEDBACK]);
