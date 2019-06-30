@@ -30,7 +30,6 @@ import {ToastrModule} from 'ngx-toastr';
 // Modules
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {NgxPaginationModule} from 'ngx-pagination';
 import {AutosizeModule} from 'ngx-autosize';
 import {RouterModule, Routes} from '@angular/router';
 import {RouteUrls} from './app.route-urls';
@@ -69,7 +68,6 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
-    NgxPaginationModule,
     ReactiveFormsModule, FormsModule,
     FontAwesomeModule,
     HttpClientModule,
