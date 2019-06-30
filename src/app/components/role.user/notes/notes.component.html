@@ -24,8 +24,8 @@
     <!--Notebooks list-->
     <ul class="list-group">
       <li class="list-group-item list-group-item-action d-flex align-items-center pr-2 pt-2 pb-2"
-          [class.active]="selectedNb===notebook" (click)="selectNb(notebook)"
-          *ngFor="let notebook of notebooks | paginate: { itemsPerPage: 5, currentPage: page }">
+          *ngFor="let notebook of notebooks | paginate: { itemsPerPage: 5, currentPage: page }"
+          [class.active]="selectedNb===notebook" (click)="setSelectedNb(notebook)">
         <input class="flex-grow-1" type="text" value="{{notebook.name}}"
                (change)="updateNotebook($event,notebook)"
                [readOnly]="selectedNb!==notebook"
@@ -55,29 +55,10 @@
 
     <!--Note cards-->
     <div class="row">
-      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4" *ngFor="let note of notes">
-        <div class="card">
-
-          <!--Title and delete note button-->
-          <div class="card-header d-flex align-items-center pr-1 pt-1 pb-1">
-            <input class="flex-grow-1" type="text" value="{{note.title}}"
-                   (change)="updateNoteTitle($event,note)"
-            >
-            <button type="button" class="btn btn-sm" (click)="deleteNote(note)">
-              <fa-icon [icon]="['fas', 'trash-alt']" class="text-danger"></fa-icon>
-            </button>
-          </div>
-
-          <!--Note content-->
-          <div class="card-body pb-2">
-            <textarea autosize class="form-control note-text" (change)="updateNoteText($event,note)"
-            >{{note.text}}</textarea>
-            <p class="card-text">
-              <small class="text-muted float-right mt-3">{{note.modifiedAgo()}}</small>
-            </p>
-          </div>
-        </div>
-      </div>
+      <app-note-card class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4"
+                     *ngFor="let n of notes" [note]="n"
+                     (clickDelete)="deleteNote(n)">
+      </app-note-card>
     </div>
 
   </div>

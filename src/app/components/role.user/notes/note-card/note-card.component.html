@@ -1,0 +1,22 @@
+<div class="card">
+  <!--Title and delete note button-->
+  <div class="card-header d-flex align-items-center pr-1 pt-1 pb-1">
+    <input class="flex-grow-1" type="text"
+           [(ngModel)]="note.title"
+           (change)="updateNote()"
+    >
+    <button type="button" class="btn btn-sm" (click)="clickDelete.emit()">
+      <fa-icon [icon]="['fas', 'trash-alt']" class="text-danger"></fa-icon>
+    </button>
+  </div>
+  <!--Note content-->
+  <div class="card-body pb-2">
+            <textarea autosize class="form-control note-text"
+                      [(ngModel)]="note.text"
+                      (change)="updateNote()"
+            ></textarea>
+    <p class="card-text">
+      <small class="text-muted float-right mt-3">{{note.modifiedAgo()}}</small>
+    </p>
+  </div>
+</div>

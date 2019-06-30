@@ -64,55 +64,19 @@ export class NotesComponent implements OnInit {
     );
   }
 
-  // View callbacks
-
-  selectNb(notebook: NotebookModel) {
-    this.setSelectedNb(notebook);
+  setSelectedNb(notebook: NotebookModel) {
+    if (notebook === null) {
+      this.notes = [];
+    } else if (this.selectedNb !== notebook) {
+      this.getAllNotesByNb(notebook.id);
+    }
+    this.selectedNb = notebook;
   }
 
   createNotebook(name: string) {
     this.http.createNotebook(name).subscribe(
       res => this.notebooks.push(new NotebookModel(res)),
       err => this.toast.error('Failed to create notebook')
-    );
-  }
-
-  createNote(name: string, title: string, nbId: number) {
-    this.http.createNote(name, title, nbId).subscribe(
-      res => {
-        const newNote = new NoteModel(res);
-        this.notes.push(newNote);
-        this.addSizeByNote(newNote, 1);
-      },
-      err => this.toast.error('Failed to create note')
-    );
-  }
-
-  updateNoteTitle(event: any, note: NoteModel) {
-    this.http.updateNote(note.id, event.target.value, note.text, note.notebookId).subscribe(
-      res => {
-        Object.assign(note, new NoteModel(res));
-        event.target.value = note.title;
-        this.toast.success('Note updated');
-      },
-      err => {
-        event.target.value = note.title;
-        this.toast.error('Failed to update note');
-      }
-    );
-  }
-
-  updateNoteText(event: any, note: NoteModel) {
-    this.http.updateNote(note.id, note.title, event.target.value, note.notebookId).subscribe(
-      res => {
-        Object.assign(note, new NoteModel(res));
-        event.target.value = note.text;
-        this.toast.success('Note updated');
-      },
-      err => {
-        event.target.value = note.text;
-        this.toast.error('Failed to update note');
-      }
     );
   }
 
@@ -143,37 +107,33 @@ export class NotesComponent implements OnInit {
     );
   }
 
-  getNbByNote(note: NoteModel): NotebookModel {
-    return this.notebooks.find(n => n.id === note.notebookId);
-  }
-
-  addSizeByNote(n: NoteModel, d: number) {
-    const nb = this.getNbByNote(n);
-    if (nb !== undefined) {
-      nb.size += d;
-    }
+  createNote(name: string, title: string, nbId: number) {
+    this.http.createNote(name, title, nbId).subscribe(
+      res => {
+        const newNote = new NoteModel(res);
+        this.notes.push(newNote);
+        this.addNbSize(newNote.notebookId, 1);
+      },
+      err => this.toast.error('Failed to create note')
+    );
   }
 
   deleteNote(note: NoteModel) {
     this.http.deleteNote(note.id).subscribe(
       res => {
-        this.addSizeByNote(note, -1);
+        this.addNbSize(note.notebookId, -1);
         this.notes.splice(this.notes.indexOf(note), 1);
         this.toast.success(res.message);
       },
-      err => this.toast.error('Failed to delete note')
+      () => this.toast.error('Failed to delete note')
     );
   }
 
-  // State
-
-  setSelectedNb(notebook: NotebookModel) {
-    if (notebook === null) {
-      this.notes = [];
-    } else if (this.selectedNb !== notebook) {
-      this.getAllNotesByNb(notebook.id);
+  addNbSize(id: number, d: number) {
+    const nb = this.notebooks.find(n => n.id === id);
+    if (nb !== undefined) {
+      nb.size += d;
     }
-    this.selectedNb = notebook;
   }
 
 }

@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {APP_CONFIG, IAppConfig} from './app.config';
 import {UserModel} from './model/user.model';
 import {LoginModel} from './model/login.model';
+import {NoteModel} from './model/note.model';
 
 @Injectable({
   providedIn: 'root'
@@ -88,9 +89,9 @@ export class HttpService {
     return this.http.post(this.API_NOTES_PATH, {title, text, notebookId}, this.httpOptions);
   }
 
-  updateNote(id: number, title: string, text: string, notebookId: number): Observable<any> {
-    return this.http.put(HttpService.pathJoin([this.API_NOTES_PATH, String(id)]),
-      {title, text, notebookId}, this.httpOptions);
+  updateNote(note: NoteModel): Observable<any> {
+    return this.http.put(HttpService.pathJoin([this.API_NOTES_PATH, String(note.id)]),
+      {title: note.title, text: note.text, notebookId: note.notebookId}, this.httpOptions);
   }
 
   deleteNote(id: number): Observable<any> {

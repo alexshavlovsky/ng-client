@@ -40,6 +40,7 @@ import {AuthInterceptor} from './auth/auth.interceptor';
 import {AuthRedirectGuard} from './auth/auth.redirect.guard';
 import {AuthGuard} from './auth/auth.guard';
 import {AuthRole} from './auth/auth-role.enum';
+import { NoteCardComponent } from './components/role.user/notes/note-card/note-card.component';
 
 const appRoutes: Routes = [
   {path: RouteUrls.REGISTER, component: RegisterComponent, canActivate: [AuthRedirectGuard]},
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     LoginComponent,
     UsersComponent,
-    CommandsComponent
+    CommandsComponent,
+    NoteCardComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
