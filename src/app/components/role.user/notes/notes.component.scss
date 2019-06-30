@@ -1,9 +1,7 @@
-li { // list of notebooks
-  * {
-    cursor: default;
-  }
+.list-group > * { // list of notebooks
+  cursor: default;
 
-  button, button > * { // selector for delete notebook icon
+  .btn, .btn > * { // selector for delete notebook icon
     cursor: pointer;
   }
 
@@ -12,6 +10,7 @@ li { // list of notebooks
     background-color: transparent;
     border: 0;
     outline: none;
+    cursor: default;
   }
 
   &.active > input { // selector for active notebook
