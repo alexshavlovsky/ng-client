@@ -2,10 +2,10 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FeedbackModel} from './model/feedback.model';
 import {Observable} from 'rxjs';
-import {APP_CONFIG, IAppConfig} from './app.config';
 import {UserModel} from './model/user.model';
 import {LoginModel} from './model/login.model';
 import {NoteModel} from './model/note.model';
+import {IEnvConfig} from './env.injector';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class HttpService {
   API_FEEDBACK = 'feedback';
   API_NOTES = 'notes';
   API_NOTEBOOKS = 'notebooks';
-  API_BASE_PATH = this.config.apiEndpoint;
+  API_BASE_PATH = this.envConfig.apiBaseUrl;
   API_USERS_PATH = HttpService.pathJoin([this.API_BASE_PATH, this.API_USERS]);
   API_LOGIN_PATH = HttpService.pathJoin([this.API_USERS_PATH, this.API_LOGIN]);
   API_CURRENT_USER_PATH = HttpService.pathJoin([this.API_USERS_PATH, this.API_CURRENT_USER]);
@@ -33,7 +33,15 @@ export class HttpService {
     })
   };
 
-  constructor(private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
+  constructor(private http: HttpClient, @Inject('ENV_CONFIG') private envConfig: IEnvConfig) {
+    if (envConfig.override) {
+      const override = envConfig.override;
+      for (const key in override) {
+        if (this.hasOwnProperty(key)) {
+          this[key] = override[key];
+        }
+      }
+    }
   }
 
   static pathJoin(parts: string[]): string {

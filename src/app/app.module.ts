@@ -34,12 +34,12 @@ import {AutosizeModule} from 'ngx-autosize';
 import {RouterModule, Routes} from '@angular/router';
 import {RouteUrls} from './app.route-urls';
 // Services
-import {APP_CONFIG, AppConfig} from './app.config';
 import {AuthInterceptor} from './auth/auth.interceptor';
 import {AuthRedirectGuard} from './auth/auth.redirect.guard';
 import {AuthGuard} from './auth/auth.guard';
 import {AuthRole} from './auth/auth-role.enum';
-import { NoteCardComponent } from './components/role.user/notes/note-card/note-card.component';
+import {NoteCardComponent} from './components/role.user/notes/note-card/note-card.component';
+import {EnvConfigProvider} from './env.injector';
 
 const appRoutes: Routes = [
   {path: RouteUrls.REGISTER, component: RegisterComponent, canActivate: [AuthRedirectGuard]},
@@ -75,8 +75,10 @@ const appRoutes: Routes = [
     AutosizeModule,
     ToastrModule.forRoot({newestOnTop: false, positionClass: 'toast-bottom-right'})
   ],
-  providers: [{provide: APP_CONFIG, useValue: AppConfig},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [
+    EnvConfigProvider,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
