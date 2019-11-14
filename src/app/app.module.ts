@@ -15,6 +15,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {
   faEnvelope,
+  faExchangeAlt,
   faPen,
   faPlusCircle,
   faSignInAlt,
@@ -84,6 +85,6 @@ const appRoutes: Routes = [
 export class AppModule {
   constructor() {
     // fontawesome library
-    library.add(faStickyNote, faEnvelope, faPen, faTrashAlt, faPlusCircle, faUserPlus, faUser, faSignInAlt, faSignOutAlt);
+    library.add(faStickyNote, faEnvelope, faPen, faTrashAlt, faPlusCircle, faUserPlus, faUser, faSignInAlt, faSignOutAlt, faExchangeAlt);
   }
 }

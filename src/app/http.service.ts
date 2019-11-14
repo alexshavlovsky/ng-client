@@ -33,6 +33,9 @@ export class HttpService {
     })
   };
 
+  // if not empty, 'switch frontend' button will be displayed on the nav bar
+  switchFrontendHref = '';
+
   constructor(private http: HttpClient, @Inject('ENV_CONFIG') private envConfig: IEnvConfig) {
     if (envConfig.override) {
       const override = envConfig.override;

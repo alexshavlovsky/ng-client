@@ -2,8 +2,10 @@
 
 Basic Angular REST API client.
 
-Backend service for this project: [MyNotes SpringBoot Service](https://github.com/alexshavlovsky/mynotes-springboot-service).
-
+A Backend service for this project: [MyNotes SpringBoot Service](https://github.com/alexshavlovsky/mynotes-springboot-service).
+<br>
+An Angular Material version of the client: [Angular Material NgRx  REST Client](https://github.com/alexshavlovsky/mynotes-material-client.git).
+ 
 <p align="center">
   <img src="screenshots/2_login.png?raw=true"/>
 </p>
