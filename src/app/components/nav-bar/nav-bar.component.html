@@ -44,11 +44,6 @@
           <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
           Sign out</a>
       </li>
-      <li class="nav-item" *ngIf="auth.logged">
-        <a class="nav-link" href="javascript:void(0)" (click)="logOut()">
-          <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
-          Sign out</a>
-      </li>
       <li class="nav-item" *ngIf="switchFrontendLink">
         <a class="nav-link" [href]="switchFrontendLink">
           <fa-icon [icon]="['fas', 'exchange-alt']"></fa-icon>
